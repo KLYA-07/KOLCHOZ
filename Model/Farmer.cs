@@ -4,6 +4,7 @@
     {
         public string farmerName { get; set; } = string.Empty;
         public int finacialCapital { get; set; }
+        public Dictionary<string, int> lastHarvest {  get; set; }
 
     }
 }
