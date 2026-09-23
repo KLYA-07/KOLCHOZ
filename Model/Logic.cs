@@ -36,19 +36,25 @@
             allFarmers.Insert(farmerIndex, farmer);
         }
 
-        public bool ExchangeProducts(int payerFarmerIndex, int sellerFarmerIndex, string itemName, int itemsCount)
+        public bool ExchangeProducts(int payerFarmerIndex, int sellerFarmerIndex, int itemIndex, int itemsCount)
         {
             Farmer payer = allFarmers[payerFarmerIndex];
             Farmer seller = allFarmers[sellerFarmerIndex];
 
-            int sum = seller.harvestCosts[itemName] * itemsCount;
-            if (payer.finacialCapital >= sum)
+            int sum = seller.harvestCosts[itemIndex] * itemsCount;
+            if (payer.finacialCapital >= sum && seller.lastHarvest[payer.lastHarvest.Keys.ToList()[itemIndex]] >= itemsCount)
             {
                 payer.finacialCapital -= sum;
                 seller.finacialCapital += sum;
 
-                payer.lastHarvest[itemName] += itemsCount;
-                seller.lastHarvest[itemName] -= itemsCount;
+                payer.lastHarvest[payer.lastHarvest.Keys.ToList()[itemIndex]] += itemsCount;
+                seller.lastHarvest[payer.lastHarvest.Keys.ToList()[itemIndex]] -= itemsCount;
+
+                if(seller.lastHarvest[payer.lastHarvest.Keys.ToList()[itemIndex]] == 0)
+                {
+                    seller.lastHarvest.Remove(payer.lastHarvest.Keys.ToList()[itemIndex]);
+                    seller.harvestCosts.RemoveAt(itemIndex);
+                }
 
                 return true;
             }
@@ -60,7 +66,7 @@
 
         public void HarvestSort()
         {
-            allFarmers = allFarmers.OrderBy(h =>
+            allFarmers = allFarmers.OrderByDescending(h =>
             {
                 int sum = 0;
                 foreach (var item in h.lastHarvest)
