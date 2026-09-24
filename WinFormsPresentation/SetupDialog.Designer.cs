@@ -46,21 +46,18 @@
             label7 = new Label();
             label8 = new Label();
             label9 = new Label();
-            label11 = new Label();
             label12 = new Label();
-            cattleCount = new TextBox();
             cattleName = new TextBox();
             removeCattle = new Button();
             addCattle = new Button();
             cattleList = new ListBox();
-            label10 = new Label();
             label13 = new Label();
-            cultureCount = new TextBox();
             cultureName = new TextBox();
             removeCulture = new Button();
             addCulture = new Button();
             cultureList = new ListBox();
-            lastHarvest = new ListBox();
+            harvestList = new ListBox();
+            saveFarmer = new Button();
             SuspendLayout();
             // 
             // farmerName
@@ -69,7 +66,7 @@
             farmerName.Name = "farmerName";
             farmerName.Size = new Size(240, 31);
             farmerName.TabIndex = 0;
-            farmerName.TextChanged += farmerName_TextChanged;
+            farmerName.Validating += farmerName_Validating;
             // 
             // setupTitle
             // 
@@ -145,7 +142,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(27, 591);
+            label6.Location = new Point(27, 521);
             label6.Name = "label6";
             label6.Size = new Size(216, 25);
             label6.TabIndex = 13;
@@ -159,6 +156,7 @@
             addProduct.TabIndex = 15;
             addProduct.Text = "Добавить";
             addProduct.UseVisualStyleBackColor = true;
+            addProduct.Click += addProduct_Click;
             // 
             // removeProduct
             // 
@@ -168,6 +166,7 @@
             removeProduct.TabIndex = 16;
             removeProduct.Text = "Удалить";
             removeProduct.UseVisualStyleBackColor = true;
+            removeProduct.Click += removeProduct_Click;
             // 
             // productName
             // 
@@ -175,6 +174,7 @@
             productName.Name = "productName";
             productName.Size = new Size(150, 31);
             productName.TabIndex = 17;
+            productName.Validating += productName_Validating;
             // 
             // productCount
             // 
@@ -182,6 +182,7 @@
             productCount.Name = "productCount";
             productCount.Size = new Size(150, 31);
             productCount.TabIndex = 18;
+            productCount.Validating += productCount_Validating;
             // 
             // productCost
             // 
@@ -189,6 +190,7 @@
             productCost.Name = "productCost";
             productCost.Size = new Size(150, 31);
             productCost.TabIndex = 19;
+            productCost.Validating += productCost_Validating;
             // 
             // label7
             // 
@@ -217,15 +219,6 @@
             label9.TabIndex = 22;
             label9.Text = "Цена";
             // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Location = new Point(546, 511);
-            label11.Name = "label11";
-            label11.Size = new Size(107, 25);
-            label11.TabIndex = 30;
-            label11.Text = "Количество";
-            // 
             // label12
             // 
             label12.AutoSize = true;
@@ -235,19 +228,13 @@
             label12.TabIndex = 29;
             label12.Text = "Наименование";
             // 
-            // cattleCount
-            // 
-            cattleCount.Location = new Point(702, 508);
-            cattleCount.Name = "cattleCount";
-            cattleCount.Size = new Size(150, 31);
-            cattleCount.TabIndex = 27;
-            // 
             // cattleName
             // 
             cattleName.Location = new Point(702, 471);
             cattleName.Name = "cattleName";
             cattleName.Size = new Size(150, 31);
             cattleName.TabIndex = 26;
+            cattleName.Validating += cattleName_Validating;
             // 
             // removeCattle
             // 
@@ -257,6 +244,7 @@
             removeCattle.TabIndex = 25;
             removeCattle.Text = "Удалить";
             removeCattle.UseVisualStyleBackColor = true;
+            removeCattle.Click += removeCattle_Click;
             // 
             // addCattle
             // 
@@ -266,6 +254,7 @@
             addCattle.TabIndex = 24;
             addCattle.Text = "Добавить";
             addCattle.UseVisualStyleBackColor = true;
+            addCattle.Click += addCattle_Click;
             // 
             // cattleList
             // 
@@ -273,93 +262,90 @@
             cattleList.ItemHeight = 25;
             cattleList.Location = new Point(273, 396);
             cattleList.Name = "cattleList";
-            cattleList.Size = new Size(267, 154);
+            cattleList.Size = new Size(267, 104);
             cattleList.TabIndex = 23;
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Location = new Point(546, 706);
-            label10.Name = "label10";
-            label10.Size = new Size(107, 25);
-            label10.TabIndex = 37;
-            label10.Text = "Количество";
+            cattleList.SelectedIndexChanged += cattleList_SelectedIndexChanged;
             // 
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(546, 672);
+            label13.Location = new Point(546, 602);
             label13.Name = "label13";
             label13.Size = new Size(135, 25);
             label13.TabIndex = 36;
             label13.Text = "Наименование";
             // 
-            // cultureCount
-            // 
-            cultureCount.Location = new Point(702, 703);
-            cultureCount.Name = "cultureCount";
-            cultureCount.Size = new Size(150, 31);
-            cultureCount.TabIndex = 35;
-            // 
             // cultureName
             // 
-            cultureName.Location = new Point(702, 666);
+            cultureName.Location = new Point(702, 596);
             cultureName.Name = "cultureName";
             cultureName.Size = new Size(150, 31);
             cultureName.TabIndex = 34;
+            cultureName.Validating += cultureName_Validating;
             // 
             // removeCulture
             // 
-            removeCulture.Location = new Point(546, 626);
+            removeCulture.Location = new Point(546, 556);
             removeCulture.Name = "removeCulture";
             removeCulture.Size = new Size(306, 34);
             removeCulture.TabIndex = 33;
             removeCulture.Text = "Удалить";
             removeCulture.UseVisualStyleBackColor = true;
+            removeCulture.Click += removeCulture_Click;
             // 
             // addCulture
             // 
-            addCulture.Location = new Point(546, 586);
+            addCulture.Location = new Point(546, 516);
             addCulture.Name = "addCulture";
             addCulture.Size = new Size(306, 34);
             addCulture.TabIndex = 32;
             addCulture.Text = "Добавить";
             addCulture.UseVisualStyleBackColor = true;
+            addCulture.Click += addCulture_Click;
             // 
             // cultureList
             // 
             cultureList.FormattingEnabled = true;
             cultureList.ItemHeight = 25;
-            cultureList.Location = new Point(273, 591);
+            cultureList.Location = new Point(273, 521);
             cultureList.Name = "cultureList";
-            cultureList.Size = new Size(267, 154);
+            cultureList.Size = new Size(267, 104);
             cultureList.TabIndex = 31;
+            cultureList.SelectedIndexChanged += cultureList_SelectedIndexChanged;
             // 
-            // lastHarvest
+            // harvestList
             // 
-            lastHarvest.FormattingEnabled = true;
-            lastHarvest.ItemHeight = 25;
-            lastHarvest.Location = new Point(273, 201);
-            lastHarvest.Name = "lastHarvest";
-            lastHarvest.Size = new Size(267, 154);
-            lastHarvest.TabIndex = 38;
+            harvestList.FormattingEnabled = true;
+            harvestList.ItemHeight = 25;
+            harvestList.Location = new Point(273, 201);
+            harvestList.Name = "harvestList";
+            harvestList.Size = new Size(267, 154);
+            harvestList.TabIndex = 38;
+            harvestList.SelectedIndexChanged += harvestList_SelectedIndexChanged;
+            // 
+            // saveFarmer
+            // 
+            saveFarmer.Location = new Point(344, 671);
+            saveFarmer.Name = "saveFarmer";
+            saveFarmer.Size = new Size(222, 34);
+            saveFarmer.TabIndex = 39;
+            saveFarmer.Text = "Сохранить фермера";
+            saveFarmer.UseVisualStyleBackColor = true;
+            saveFarmer.Click += saveFarmer_Click;
             // 
             // SetupDialog
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(888, 834);
-            Controls.Add(lastHarvest);
-            Controls.Add(label10);
+            Controls.Add(saveFarmer);
+            Controls.Add(harvestList);
             Controls.Add(label13);
-            Controls.Add(cultureCount);
             Controls.Add(cultureName);
             Controls.Add(removeCulture);
             Controls.Add(addCulture);
             Controls.Add(cultureList);
-            Controls.Add(label11);
             Controls.Add(label12);
-            Controls.Add(cattleCount);
             Controls.Add(cattleName);
             Controls.Add(removeCattle);
             Controls.Add(addCattle);
@@ -402,7 +388,6 @@
         private Label label4;
         private Label label5;
         private Label label6;
-        private ListBox listBox1;
         private Button addProduct;
         private Button removeProduct;
         private TextBox productName;
@@ -411,20 +396,17 @@
         private Label label7;
         private Label label8;
         private Label label9;
-        private Label label11;
         private Label label12;
-        private TextBox cattleCount;
         private TextBox cattleName;
         private Button removeCattle;
         private Button addCattle;
         private ListBox cattleList;
-        private Label label10;
         private Label label13;
-        private TextBox cultureCount;
         private TextBox cultureName;
         private Button removeCulture;
         private Button addCulture;
         private ListBox cultureList;
-        private ListBox lastHarvest;
+        private ListBox harvestList;
+        private Button saveFarmer;
     }
 }

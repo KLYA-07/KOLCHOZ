@@ -65,6 +65,7 @@
             removeButton.TabIndex = 2;
             removeButton.Text = "Удалить фермера";
             removeButton.UseVisualStyleBackColor = true;
+            removeButton.Click += removeButton_Click;
             // 
             // readFarmer
             // 
@@ -74,6 +75,7 @@
             readFarmer.TabIndex = 3;
             readFarmer.Text = "Прочитать фермера";
             readFarmer.UseVisualStyleBackColor = true;
+            readFarmer.Click += readFarmer_Click;
             // 
             // changeFarmer
             // 
@@ -83,6 +85,7 @@
             changeFarmer.TabIndex = 4;
             changeFarmer.Text = "Изменить фермера";
             changeFarmer.UseVisualStyleBackColor = true;
+            changeFarmer.Click += changeFarmer_Click;
             // 
             // exchangeProduct
             // 
@@ -92,6 +95,7 @@
             exchangeProduct.TabIndex = 5;
             exchangeProduct.Text = "Произвести покупку";
             exchangeProduct.UseVisualStyleBackColor = true;
+            exchangeProduct.Click += exchangeProduct_Click;
             // 
             // harvestSort
             // 
@@ -101,6 +105,7 @@
             harvestSort.TabIndex = 6;
             harvestSort.Text = "Отсортировать по урожаю";
             harvestSort.UseVisualStyleBackColor = true;
+            harvestSort.Click += harvestSort_Click;
             // 
             // FarmForm
             // 
@@ -115,7 +120,7 @@
             Controls.Add(addButton);
             Controls.Add(farmerList);
             Name = "FarmForm";
-            Text = "Form1";
+            Text = "Фермеры";
             ResumeLayout(false);
         }
 
