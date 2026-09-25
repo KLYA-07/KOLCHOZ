@@ -121,34 +121,73 @@ namespace ConsolePresentation
                                                 Console.WriteLine("Какое у него будет поле?");
                                                 nf.fieldSize = Proverka(1, 2, true);
                                                 break;
-                                            case 4:
-                                                Console.WriteLine();
-                                                nf.lastHarvest = new Dictionary<string, int>();
-                                                nf.harvestCosts = [];
-                                                string abc = "";
-                                                while(abc != "нет")
+                                        case 4:
+                                            bool rutProducts = true;
+                                            while (rutProducts)
+                                            {
+                                                Console.WriteLine("\nТекущий список продуктов:");
+                                                if (nf.lastHarvest.Count == 0)
                                                 {
-                                                    Console.WriteLine("Выберите продукт или нет, чтобы закончить");
-                                                    abc = Console.ReadLine();
-                                                if (abc== "нет"){ break; }
-                                                    if (abc == "") { Console.WriteLine("Попробуйте снова"); }
-                                                    else { nf.lastHarvest[abc] = 0; }
+                                                    Console.WriteLine("(пусто)");
                                                 }
-                                                for (int i = 0; i < nf.lastHarvest.Count; i++)
+                                                else
                                                 {
-                                                    string key = nf.lastHarvest.ElementAt(i).Key;
-                                                    Console.WriteLine($"Сколько {key} будет у него?");
-                                                    int l = Proverka(1, 2, true);
-                                                    nf.lastHarvest[key]=l;
+                                                    int idx = 1;
+                                                    foreach (var kvp in nf.lastHarvest)
+                                                    {
+                                                        Console.WriteLine($"{idx}. {kvp.Key}: {kvp.Value} шт. - {nf.harvestCosts[idx - 1]} руб.");
+                                                        idx++;
+                                                    }
                                                 }
-                                                for (int i = 0;i < nf.lastHarvest.Count; i++)
+
+                                                Console.WriteLine($"\nВведите номер продукта для изменения (1..{nf.lastHarvest.Count}),\nили {nf.lastHarvest.Count + 1} для добавления нового, или 0 для выхода:");
+                                                int choice = Proverka(0, 2, true);
+
+                                                if (choice == 0)
                                                 {
-                                                    Console.WriteLine($"Сколько будет стоить {nf.lastHarvest.ElementAt(i).Key}?");
-                                                    int l = Proverka(1, 2, true);
-                                                    nf.harvestCosts.Add(l);
+                                                    rutProducts = false;
+                                                    continue;
                                                 }
-                                                break;
-                                            case 5:
+
+                                                if (choice > nf.lastHarvest.Count)
+                                                {
+                                                    Console.WriteLine("Введите название нового продукта:");
+                                                    string addKey = "";
+                                                    while (addKey == "")
+                                                    {
+                                                        addKey = Console.ReadLine()?.Trim();
+                                                        if (string.IsNullOrEmpty(addKey))
+                                                            Console.WriteLine("Попробуйте снова");
+                                                    }
+                                                    if (nf.lastHarvest.ContainsKey(addKey))
+                                                    {
+                                                        Console.WriteLine("Такой продукт уже есть. Выберите его номер для изменения.");
+                                                        continue;
+                                                    }
+                                                    Console.WriteLine($"Введите количество {addKey}:");
+                                                    int addCount = Proverka(0, 2, true);
+                                                    Console.WriteLine($"Введите цену {addKey}:");
+                                                    int addCost = Proverka(1, 2, true);
+
+                                                    nf.lastHarvest[addKey] = addCount;
+                                                    nf.harvestCosts.Add(addCost);
+                                                    Console.WriteLine($"Продукт {addKey} добавлен.");
+                                                }
+                                                else
+                                                {
+                                                    int changeIdx = choice - 1;
+                                                    string changeKey = nf.lastHarvest.ElementAt(changeIdx).Key;
+
+                                                    Console.WriteLine($"\nВыбран продукт: {changeKey}\nКоличество: {nf.lastHarvest[changeKey]}\nЦена: {nf.harvestCosts[changeIdx]}\nВведите новое количество:");
+                                                    nf.lastHarvest[changeKey] = Proverka(0, 2, true);
+                                                    Console.WriteLine("Введите новую цену:");
+                                                    nf.harvestCosts[changeIdx] = Proverka(1, 2, true);
+
+                                                    Console.WriteLine($"Продукт {changeKey} обновлён.");
+                                                }
+                                            }
+                                            break;
+                                        case 5:
                                                 for (int i = 0; i < nf.harvestCosts.Count; i++)
                                                 {
                                                     Console.WriteLine($"Сколько стоить будет {nf.lastHarvest.ElementAt(i)}. Сейчас он стоит - {nf.harvestCosts[i]}");
