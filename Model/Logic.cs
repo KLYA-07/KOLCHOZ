@@ -42,17 +42,25 @@
             Farmer seller = allFarmers[sellerFarmerIndex];
 
             int sum = seller.harvestCosts[itemIndex] * itemsCount;
-            if (payer.finacialCapital >= sum && seller.lastHarvest[payer.lastHarvest.Keys.ToList()[itemIndex]] >= itemsCount)
+            string product = seller.lastHarvest.Keys.ToList()[itemIndex];
+
+            if (payer.finacialCapital >= sum && seller.lastHarvest[product] >= itemsCount)
             {
                 payer.finacialCapital -= sum;
                 seller.finacialCapital += sum;
 
-                payer.lastHarvest[payer.lastHarvest.Keys.ToList()[itemIndex]] += itemsCount;
-                seller.lastHarvest[payer.lastHarvest.Keys.ToList()[itemIndex]] -= itemsCount;
-
-                if(seller.lastHarvest[payer.lastHarvest.Keys.ToList()[itemIndex]] == 0)
+                if (!payer.lastHarvest.ContainsKey(product))
                 {
-                    seller.lastHarvest.Remove(payer.lastHarvest.Keys.ToList()[itemIndex]);
+                    payer.lastHarvest.Add(product, 0);
+                    payer.harvestCosts.Add(seller.harvestCosts[itemIndex]);
+                }
+
+                payer.lastHarvest[product] += itemsCount;
+                seller.lastHarvest[product] -= itemsCount;
+
+                if(seller.lastHarvest[product] == 0)
+                {
+                    seller.lastHarvest.Remove(product);
                     seller.harvestCosts.RemoveAt(itemIndex);
                 }
 
