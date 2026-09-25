@@ -3,21 +3,33 @@ using System;
 using System.Reflection.Metadata;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+
 namespace ConsolePresentation
 {
+    /// <summary>
+    /// Консольное представление программы для управления фермерами.
+    /// Содержит точку входа и меню взаимодействия с пользователем.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Экземпляр бизнес-логики, через который выполняются все операции над фермерами.
+        /// </summary>
         private static Logic logic = new Logic();
 
+        /// <summary>
+        /// Точка входа в программу. Инициализирует тестовых фермеров и запускает главное меню.
+        /// </summary>
+        /// <param name="args">Аргументы командной строки (не используются).</param>
         public static void Main(string[] args)
         {
             bool a = true;
-            
+
             logic.AddFarmer(new Farmer("Юзя", 2500, 300, new Dictionary<string, int>() { { "Кукуруза", 12 }, { "Свекла", 10 }, { "Картошка", 30 },
-    { "Томаты", 12 }, { "Морковка", 20 }, { "Коровы", 26 }, { "Свиньи", 52 } }, [25,10, 5, 8, 3, 400, 150 ], ["Кукуруза", "Свекла", "Картошка", "Томаты", "Морковка"],["Коровы", "Свиньи"]));
+    { "Томаты", 12 }, { "Морковка", 20 }, { "Коровы", 26 }, { "Свиньи", 52 } }, [25, 10, 5, 8, 3, 400, 150], ["Кукуруза", "Свекла", "Картошка", "Томаты", "Морковка"], ["Коровы", "Свиньи"]));
 
             logic.AddFarmer(new Farmer("Рома", 1700, 200, new Dictionary<string, int>() { { "Кукуруза", 8 }, { "Свекла", 5 }, { "Картошка", 40 },
-    { "Томаты", 4 }, { "Морковка", 2 }, { "Коровы", 30 }, { "Свиньи", 32 } }, [20, 9, 7, 9, 6, 400, 150], ["Кукуруза", "Свекла", "Картошка", "Томаты", "Морковка"],["Коровы","Свиньи"]));
+    { "Томаты", 4 }, { "Морковка", 2 }, { "Коровы", 30 }, { "Свиньи", 32 } }, [20, 9, 7, 9, 6, 400, 150], ["Кукуруза", "Свекла", "Картошка", "Томаты", "Морковка"], ["Коровы", "Свиньи"]));
             while (a)
             {
                 Console.WriteLine();
@@ -32,7 +44,7 @@ namespace ConsolePresentation
                     case 2:
                         Console.WriteLine("Кого по счету вы уберете?");
                         int d = Convert.ToInt32(Console.ReadLine());
-                        if (d >0 && d <= logic.AllFarmers.Count)
+                        if (d > 0 && d <= logic.AllFarmers.Count)
                         {
                             logic.RemoveFarmer(d - 1);
                         }
@@ -46,14 +58,13 @@ namespace ConsolePresentation
                         int e = Convert.ToInt32(Console.ReadLine());
                         if (e > 0 && e <= logic.AllFarmers.Count)
                         {
-
                             Farmer farmer = logic.ReadFarmer(e - 1);
 
                             string farmerInfo = $"Имя фермера: {farmer.farmerName}\nФинансовый капитал: {farmer.finacialCapital} руб.\nРазмер поля: {farmer.fieldSize} Г\nРазмер урожая: ";
 
-                            for (int i = 0; i<farmer.lastHarvest.Count;i++)
+                            for (int i = 0; i < farmer.lastHarvest.Count; i++)
                             {
-                                    var item = farmer.lastHarvest.ElementAt(i);
+                                var item = farmer.lastHarvest.ElementAt(i);
                                 var fhc = farmer.harvestCosts;
                                 farmerInfo += $"{item.Key}: {item.Value} (Цена: {fhc[i]} за шт.); ";
                             }
@@ -75,7 +86,6 @@ namespace ConsolePresentation
                             }
                             farmerInfo = farmerInfo.TrimEnd(' ', ';');
                             Console.WriteLine(farmerInfo);
-
                         }
                         else
                         {
@@ -85,42 +95,43 @@ namespace ConsolePresentation
                     case 4:
                         Console.WriteLine("Кого поменяете?");
                         int t = Proverka(1, logic.AllFarmers.Count, false);
-                            Console.WriteLine("Хотите его поменять полностью?\n1. Да\n2. Нет");
-                            int chs1 = Proverka(1, 2, false);
-                            switch (chs1)
-                            {
-                                case 1:
-                                    logic.ChangeFarmer(t - 1, Call());
-                                    break;
-                                case 2:
-                                    Farmer nf = logic.AllFarmers[t - 1];
-                                    bool rut = true;
-                                    while (rut)
+                        Console.WriteLine("Хотите его поменять полностью?\n1. Да\n2. Нет");
+                        int chs1 = Proverka(1, 2, false);
+                        switch (chs1)
+                        {
+                            case 1:
+                                logic.ChangeFarmer(t - 1, Call());
+                                break;
+                            case 2:
+                                Farmer nf = logic.AllFarmers[t - 1];
+                                bool rut = true;
+                                while (rut)
+                                {
+                                    Console.WriteLine("Что вы хотите поменять?\n1. Имя\n2. Финансы\n3. Размер поля\n4. Продукты на продажу (заодно и цены)\n5. Стоимости продуктов\n6. Нынешнюю скотину\n7. Нынешние культуры\n0. Хватит изменений");
+                                    int chs2 = Proverka(0, 7, false);
+                                    switch (chs2)
                                     {
-                                        Console.WriteLine("Что вы хотите поменять?\n1. Имя\n2. Финансы\n3. Размер поля\n4. Продукты на продажу (заодно и цены)\n5. Стоимости продуктов\n6. Нынешнюю скотину\n7. Нынешние культуры\n0. Хватит изменений");
-                                        int chs2 = Proverka(0, 7, false);
-                                        switch (chs2)
-                                        {
-                                            case 0:
-                                                rut = false;
-                                                break;
-                                            case 1:
-                                                Console.WriteLine("Как теперь его будут звать?");
-                                                string name = "";
-                                                while(name == ""){
-                                                    name = Console.ReadLine();
-                                                    if (name == "") { Console.WriteLine("Попробуйте снова"); }
-                                                }
-                                                nf.farmerName = name;
-                                                break;
-                                            case 2:
-                                                Console.WriteLine("Сколько у него будет денег?");
-                                                nf.finacialCapital=Proverka(0, 2, true);
-                                                break;
-                                            case 3:
-                                                Console.WriteLine("Какое у него будет поле?");
-                                                nf.fieldSize = Proverka(1, 2, true);
-                                                break;
+                                        case 0:
+                                            rut = false;
+                                            break;
+                                        case 1:
+                                            Console.WriteLine("Как теперь его будут звать?");
+                                            string name = "";
+                                            while (name == "")
+                                            {
+                                                name = Console.ReadLine();
+                                                if (name == "") { Console.WriteLine("Попробуйте снова"); }
+                                            }
+                                            nf.farmerName = name;
+                                            break;
+                                        case 2:
+                                            Console.WriteLine("Сколько у него будет денег?");
+                                            nf.finacialCapital = Proverka(0, 2, true);
+                                            break;
+                                        case 3:
+                                            Console.WriteLine("Какое у него будет поле?");
+                                            nf.fieldSize = Proverka(1, 2, true);
+                                            break;
                                         case 4:
                                             bool rutProducts = true;
                                             while (rutProducts)
@@ -188,45 +199,43 @@ namespace ConsolePresentation
                                             }
                                             break;
                                         case 5:
-                                                for (int i = 0; i < nf.harvestCosts.Count; i++)
-                                                {
-                                                    Console.WriteLine($"Сколько стоить будет {nf.lastHarvest.ElementAt(i)}. Сейчас он стоит - {nf.harvestCosts[i]}");
-                                                    nf.harvestCosts[i] = Proverka(1,2,true);
-                                                }
-                                                break;
-                                            case 6:
-                                                List<string> animals = new List<string>();
-                                                string b = "";
-                                                while (b != "нет")
-                                                {
-                                                    Console.WriteLine("Выберите животное или нет, чтобы закончить");
-                                                    b = Console.ReadLine();
+                                            for (int i = 0; i < nf.harvestCosts.Count; i++)
+                                            {
+                                                Console.WriteLine($"Сколько стоить будет {nf.lastHarvest.ElementAt(i)}. Сейчас он стоит - {nf.harvestCosts[i]}");
+                                                nf.harvestCosts[i] = Proverka(1, 2, true);
+                                            }
+                                            break;
+                                        case 6:
+                                            List<string> animals = new List<string>();
+                                            string b = "";
+                                            while (b != "нет")
+                                            {
+                                                Console.WriteLine("Выберите животное или нет, чтобы закончить");
+                                                b = Console.ReadLine();
                                                 if (b == "нет") { break; }
                                                 if (b == "") { Console.WriteLine("Попробуйте снова"); }
-                                                    else { animals.Add(b); }
-                                                }
-                                                nf.cattleHeadboard = animals;
-                                                break;
-                                            case 7:
-                                                List<string> veg = new List<string>();
-                                                string c = "";
-                                                while (c != "нет")
-                                                {
-                                                    Console.WriteLine("Выберите культуру или нет, чтобы закончить");
-                                                    c = Console.ReadLine();
+                                                else { animals.Add(b); }
+                                            }
+                                            nf.cattleHeadboard = animals;
+                                            break;
+                                        case 7:
+                                            List<string> veg = new List<string>();
+                                            string c = "";
+                                            while (c != "нет")
+                                            {
+                                                Console.WriteLine("Выберите культуру или нет, чтобы закончить");
+                                                c = Console.ReadLine();
                                                 if (c == "нет") { break; }
                                                 if (c == "") { Console.WriteLine("Попробуйте снова"); }
-                                                    else { veg.Add(c); }
-                                                }
-                                                nf.cultivatingCrops = veg;
-                                                break;
-                                        }
+                                                else { veg.Add(c); }
+                                            }
+                                            nf.cultivatingCrops = veg;
+                                            break;
                                     }
-                                    logic.ChangeFarmer(t-1, nf);
-                                    break;
-                            }
-                            
-                        
+                                }
+                                logic.ChangeFarmer(t - 1, nf);
+                                break;
+                        }
 
                         break;
                     case 5:
@@ -234,18 +243,18 @@ namespace ConsolePresentation
                         int payerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
                         Console.WriteLine("Введите номер продавца");
                         int sellerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
-                        Farmer seller = logic.AllFarmers[sellerFarmerIndex-1];
-                        for (int i =0; i< seller.lastHarvest.Count; i++)
+                        Farmer seller = logic.AllFarmers[sellerFarmerIndex - 1];
+                        for (int i = 0; i < seller.lastHarvest.Count; i++)
                         {
                             var s = seller.lastHarvest.ElementAt(i);
-                            Console.WriteLine($"{i+1}. {s.Key}, {s.Value} шт. - {seller.harvestCosts[i]} руб.");
+                            Console.WriteLine($"{i + 1}. {s.Key}, {s.Value} шт. - {seller.harvestCosts[i]} руб.");
                         }
                         Console.WriteLine($"\nНа счете покупателя: {logic.AllFarmers[payerFarmerIndex].finacialCapital}");
                         Console.WriteLine("\nЧто покупают? (введите номер)");
                         int itemindex = Proverka(1, seller.harvestCosts.Count, false);
                         Console.WriteLine("Сколько покупают?");
                         int itemval = Proverka(1, seller.lastHarvest.ElementAt(itemindex - 1).Value, false);
-                        logic.ExchangeProducts(payerFarmerIndex-1, sellerFarmerIndex-1, itemindex-1, itemval);
+                        logic.ExchangeProducts(payerFarmerIndex - 1, sellerFarmerIndex - 1, itemindex - 1, itemval);
                         break;
                     case 6:
                         logic.HarvestSort();
@@ -255,14 +264,16 @@ namespace ConsolePresentation
                         a = false;
                         break;
                     default: Console.WriteLine("Такого варианта нет"); break;
-
                 }
-                
             }
         }
+
+        /// <summary>
+        /// Запрашивает у пользователя данные для создания нового фермера.
+        /// </summary>
+        /// <returns>Новый объект <see cref="Farmer"/> с введёнными данными.</returns>
         public static Farmer Call()
         {
-            
             Console.WriteLine("Введите имя");
             string Name = "";
             while (Name == "")
@@ -278,7 +289,7 @@ namespace ConsolePresentation
             int fieldSize = 0;
             fieldSize = Proverka(1, 2, true);
             Console.WriteLine("Какой у него урожай");
-            Dictionary<string,int> lastHarvest = new Dictionary<string, int>();
+            Dictionary<string, int> lastHarvest = new Dictionary<string, int>();
             string b = "";
             while (b != "нет")
             {
@@ -292,15 +303,15 @@ namespace ConsolePresentation
             }
             Console.WriteLine("Какие у него расценки?");
             List<int> harvestCosts = new List<int>();
-            foreach (var lh  in lastHarvest)
+            foreach (var lh in lastHarvest)
             {
-                
                 int cost = -1;
                 while (cost <= 0)
                 {
                     Console.WriteLine($"Сколько у него стоит {lh.Key}");
-                    cost = Convert.ToInt32(Console.ReadLine()) ;
-                    if (cost > 0) { 
+                    cost = Convert.ToInt32(Console.ReadLine());
+                    if (cost > 0)
+                    {
                         harvestCosts.Add(cost);
                     }
                     else
@@ -333,17 +344,31 @@ namespace ConsolePresentation
             }
             return new Farmer(Name, finacialCapital, fieldSize, lastHarvest, harvestCosts, cattleHeadboard, cultivatingCrops);
         }
+
+        /// <summary>
+        /// Выводит в консоль нумерованный список всех фермеров.
+        /// </summary>
         public static void ShowFarmers()
         {
-            int o = 0;Console.WriteLine("Список фермеров:");
+            int o = 0;
+            Console.WriteLine("Список фермеров:");
             foreach (var i in logic.AllFarmers)
             {
-                
-                Console.WriteLine($"{o+1}. {i.farmerName}");
+                Console.WriteLine($"{o + 1}. {i.farmerName}");
                 o++;
             }
         }
 
+        /// <summary>
+        /// Проверяет ввод пользователя на соответствие числовому диапазону.
+        /// </summary>
+        /// <param name="min">Минимально допустимое значение.</param>
+        /// <param name="max">Максимально допустимое значение (используется только если <paramref name="bl"/> = false).</param>
+        /// <param name="bl">
+        /// Если <c>false</c> — проверяется диапазон [min, max].
+        /// Если <c>true</c> — проверяется только нижняя граница (значение &gt;= min).
+        /// </param>
+        /// <returns>Введённое пользователем целое число, удовлетворяющее условиям.</returns>
         public static int Proverka(int min, int max, bool bl)
         {
             if (bl == false)
@@ -365,8 +390,5 @@ namespace ConsolePresentation
                 }
             }
         }
-
-
     }
-
 }
