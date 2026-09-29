@@ -66,6 +66,7 @@
             farmerName.Name = "farmerName";
             farmerName.Size = new Size(240, 31);
             farmerName.TabIndex = 0;
+            farmerName.KeyDown += LeaveEditingOnEnter;
             farmerName.Validating += farmerName_Validating;
             // 
             // setupTitle
@@ -102,6 +103,7 @@
             financialCapital.Name = "financialCapital";
             financialCapital.Size = new Size(240, 31);
             financialCapital.TabIndex = 3;
+            financialCapital.KeyDown += LeaveEditingOnEnter;
             financialCapital.Validating += financialCapital_Validating;
             // 
             // label3
@@ -119,6 +121,7 @@
             fieldSize.Name = "fieldSize";
             fieldSize.Size = new Size(240, 31);
             fieldSize.TabIndex = 5;
+            fieldSize.KeyDown += LeaveEditingOnEnter;
             fieldSize.Validating += fieldSize_Validating;
             // 
             // label4
@@ -174,6 +177,7 @@
             productName.Name = "productName";
             productName.Size = new Size(150, 31);
             productName.TabIndex = 17;
+            productName.KeyDown += LeaveEditingOnEnter;
             productName.Validating += productName_Validating;
             // 
             // productCount
@@ -182,6 +186,7 @@
             productCount.Name = "productCount";
             productCount.Size = new Size(150, 31);
             productCount.TabIndex = 18;
+            productCount.KeyDown += LeaveEditingOnEnter;
             productCount.Validating += productCount_Validating;
             // 
             // productCost
@@ -190,6 +195,7 @@
             productCost.Name = "productCost";
             productCost.Size = new Size(150, 31);
             productCost.TabIndex = 19;
+            productCost.KeyDown += LeaveEditingOnEnter;
             productCost.Validating += productCost_Validating;
             // 
             // label7
@@ -234,6 +240,7 @@
             cattleName.Name = "cattleName";
             cattleName.Size = new Size(150, 31);
             cattleName.TabIndex = 26;
+            cattleName.KeyDown += LeaveEditingOnEnter;
             cattleName.Validating += cattleName_Validating;
             // 
             // removeCattle
@@ -281,6 +288,7 @@
             cultureName.Name = "cultureName";
             cultureName.Size = new Size(150, 31);
             cultureName.TabIndex = 34;
+            cultureName.KeyDown += LeaveEditingOnEnter;
             cultureName.Validating += cultureName_Validating;
             // 
             // removeCulture
@@ -371,7 +379,9 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "SetupDialog";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Настройка фермера";
+            MouseClick += LeaveEditingOnMouseClick;
             ResumeLayout(false);
             PerformLayout();
         }

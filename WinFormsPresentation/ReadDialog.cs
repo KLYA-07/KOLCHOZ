@@ -4,6 +4,10 @@ namespace WinFormsPresentation
 {
     public partial class ReadDialog : Form
     {
+        /// <summary>
+        /// Конструктор, который инициализирует форму чтения фермера: представляет информацию о фермере в удобный пользователю вид
+        /// </summary>
+        /// <param name="farmer"></param>
         public ReadDialog(Farmer farmer)
         {
             InitializeComponent();

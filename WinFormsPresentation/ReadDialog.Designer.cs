@@ -152,6 +152,7 @@
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             Name = "ReadDialog";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Информация о фермере";
             ResumeLayout(false);
             PerformLayout();

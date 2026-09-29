@@ -35,21 +35,22 @@
             changeFarmer = new Button();
             exchangeProduct = new Button();
             harvestSort = new Button();
+            title = new Label();
             SuspendLayout();
             // 
             // farmerList
             // 
             farmerList.FormattingEnabled = true;
             farmerList.ItemHeight = 25;
-            farmerList.Location = new Point(461, 12);
+            farmerList.Location = new Point(78, 74);
             farmerList.Name = "farmerList";
-            farmerList.SelectionMode = SelectionMode.MultiSimple;
+            farmerList.SelectionMode = SelectionMode.MultiExtended;
             farmerList.Size = new Size(639, 554);
             farmerList.TabIndex = 0;
             // 
             // addButton
             // 
-            addButton.Location = new Point(461, 572);
+            addButton.Location = new Point(78, 634);
             addButton.Name = "addButton";
             addButton.Size = new Size(283, 34);
             addButton.TabIndex = 1;
@@ -59,7 +60,7 @@
             // 
             // removeButton
             // 
-            removeButton.Location = new Point(817, 572);
+            removeButton.Location = new Point(434, 634);
             removeButton.Name = "removeButton";
             removeButton.Size = new Size(283, 34);
             removeButton.TabIndex = 2;
@@ -69,7 +70,7 @@
             // 
             // readFarmer
             // 
-            readFarmer.Location = new Point(461, 612);
+            readFarmer.Location = new Point(78, 674);
             readFarmer.Name = "readFarmer";
             readFarmer.Size = new Size(283, 34);
             readFarmer.TabIndex = 3;
@@ -79,7 +80,7 @@
             // 
             // changeFarmer
             // 
-            changeFarmer.Location = new Point(817, 612);
+            changeFarmer.Location = new Point(434, 674);
             changeFarmer.Name = "changeFarmer";
             changeFarmer.Size = new Size(283, 34);
             changeFarmer.TabIndex = 4;
@@ -89,7 +90,7 @@
             // 
             // exchangeProduct
             // 
-            exchangeProduct.Location = new Point(461, 652);
+            exchangeProduct.Location = new Point(78, 714);
             exchangeProduct.Name = "exchangeProduct";
             exchangeProduct.Size = new Size(283, 34);
             exchangeProduct.TabIndex = 5;
@@ -99,7 +100,7 @@
             // 
             // harvestSort
             // 
-            harvestSort.Location = new Point(817, 652);
+            harvestSort.Location = new Point(434, 714);
             harvestSort.Name = "harvestSort";
             harvestSort.Size = new Size(283, 34);
             harvestSort.TabIndex = 6;
@@ -107,11 +108,22 @@
             harvestSort.UseVisualStyleBackColor = true;
             harvestSort.Click += harvestSort_Click;
             // 
+            // title
+            // 
+            title.AutoSize = true;
+            title.Font = new Font("Segoe UI", 15F);
+            title.Location = new Point(304, 9);
+            title.Name = "title";
+            title.Size = new Size(150, 41);
+            title.TabIndex = 7;
+            title.Text = "Фермеры";
+            // 
             // FarmForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1691, 827);
+            ClientSize = new Size(800, 827);
+            Controls.Add(title);
             Controls.Add(harvestSort);
             Controls.Add(exchangeProduct);
             Controls.Add(changeFarmer);
@@ -120,8 +132,10 @@
             Controls.Add(addButton);
             Controls.Add(farmerList);
             Name = "FarmForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Фермеры";
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -133,5 +147,6 @@
         private Button changeFarmer;
         private Button exchangeProduct;
         private Button harvestSort;
+        private Label title;
     }
 }
