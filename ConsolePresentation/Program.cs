@@ -36,7 +36,7 @@ namespace ConsolePresentation
                 ShowFarmers();
                 Console.WriteLine("\nМеню:\n1 - Добавить фермера\n2 - Удалить фермера\n3 - Просмотреть фермера\n4 - Изменить фермера\n5 - Устроить куплепродажу\n6 - Сортировать урожай\n0 - Выход");
 
-                switch (Proverka(0,1,true))
+                switch (Convert.ToInt32(Console.ReadLine()))
                 {
                     case 1:
                         logic.AddFarmer(Call());
@@ -56,12 +56,45 @@ namespace ConsolePresentation
                     case 3:
                         Console.WriteLine("Кого по счету вы просмотрите полностью?");
                         int e = Convert.ToInt32(Console.ReadLine());
-                        Show(e);
+                        if (e > 0 && e <= logic.AllFarmers.Count)
+                        {
+                            Farmer farmer = logic.ReadFarmer(e - 1);
+
+                            string farmerInfo = $"Имя фермера: {farmer.farmerName}\nФинансовый капитал: {farmer.finacialCapital} руб.\nРазмер поля: {farmer.fieldSize} Г\nРазмер урожая: ";
+
+                            for (int i = 0; i < farmer.lastHarvest.Count; i++)
+                            {
+                                var item = farmer.lastHarvest.ElementAt(i);
+                                var fhc = farmer.harvestCosts;
+                                farmerInfo += $"{item.Key}: {item.Value} (Цена: {fhc[i]} за шт.); ";
+                            }
+                            farmerInfo = farmerInfo.TrimEnd(' ', ';');
+
+                            farmerInfo += "\nПоголовье скота: ";
+
+                            foreach (var item in farmer.cattleHeadboard)
+                            {
+                                farmerInfo += $"{item}; ";
+                            }
+                            farmerInfo = farmerInfo.TrimEnd(' ', ';');
+
+                            farmerInfo += "\nВыращиваемые культуры: ";
+
+                            foreach (var item in farmer.cultivatingCrops)
+                            {
+                                farmerInfo += $"{item}; ";
+                            }
+                            farmerInfo = farmerInfo.TrimEnd(' ', ';');
+                            Console.WriteLine(farmerInfo);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Такого номера у нас нет");
+                        }
                         break;
                     case 4:
                         Console.WriteLine("Кого поменяете?");
                         int t = Proverka(1, logic.AllFarmers.Count, false);
-                        Show(t);
                         Console.WriteLine("Хотите его поменять полностью?\n1. Да\n2. Нет");
                         int chs1 = Proverka(1, 2, false);
                         switch (chs1)
@@ -357,47 +390,5 @@ namespace ConsolePresentation
                 }
             }
         }
-        /// <summary>
-        /// Выводит в консоль подробную информацию о фермере по его номеру (e).
-        /// Если номер вне диапазона 1..logic.AllFarmers.Count — выводит сообщение об отсутствии.
-        /// </summary>
-        public static void Show(int e) {
-            if (e > 0 && e <= logic.AllFarmers.Count)
-            {
-                Farmer farmer = logic.ReadFarmer(e - 1);
-
-                string farmerInfo = $"Имя фермера: {farmer.farmerName}\nФинансовый капитал: {farmer.finacialCapital} руб.\nРазмер поля: {farmer.fieldSize} Г\nРазмер урожая: ";
-
-                for (int i = 0; i < farmer.lastHarvest.Count; i++)
-                {
-                    var item = farmer.lastHarvest.ElementAt(i);
-                    var fhc = farmer.harvestCosts;
-                    farmerInfo += $"{item.Key}: {item.Value} (Цена: {fhc[i]} за шт.); ";
-                }
-                farmerInfo = farmerInfo.TrimEnd(' ', ';');
-
-                farmerInfo += "\nПоголовье скота: ";
-
-                foreach (var item in farmer.cattleHeadboard)
-                {
-                    farmerInfo += $"{item}; ";
-                }
-                farmerInfo = farmerInfo.TrimEnd(' ', ';');
-
-                farmerInfo += "\nВыращиваемые культуры: ";
-
-                foreach (var item in farmer.cultivatingCrops)
-                {
-                    farmerInfo += $"{item}; ";
-                }
-                farmerInfo = farmerInfo.TrimEnd(' ', ';');
-                Console.WriteLine(farmerInfo);
-            }
-            else
-            {
-                Console.WriteLine("Такого номера у нас нет");
-            }
-        }
-
     }
 }
