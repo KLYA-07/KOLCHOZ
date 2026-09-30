@@ -14,6 +14,28 @@ namespace WinFormsPresentation
         {
             logic = new Logic();
 
+            logic.AddFarmer(new Farmer("Олег", 39600, 98.7f,
+                new Dictionary<string, int>()
+                {
+                    { "Тыквы", 10 },
+                    { "Морковь", 96 },
+                    { "Баклажаны", 15 }
+                }, new List<int>()
+                {
+                    { 235 },
+                    { 45 },
+                    { 115 },
+                }, new List<string>()
+                {
+                    { "Курица" }
+                }, new List<string>()
+                {
+                    { "Тыква" },
+                    { "Баклажан" },
+                    { "Помидоры" },
+                    { "Перцы" },
+                    { "Клубника" },
+                }));
             logic.AddFarmer(new Farmer("Виктор", 55000, 37.5f,
                 new Dictionary<string, int>()
                 {
@@ -36,29 +58,6 @@ namespace WinFormsPresentation
                     { "Кукуруза" },
                     { "Свекла" },
                     { "Подсолнух" }
-                }));
-
-            logic.AddFarmer(new Farmer("Олег", 39600, 98.7f,
-                new Dictionary<string, int>()
-                {
-                    { "Тыквы", 10 },
-                    { "Морковь", 96 },
-                    { "Баклажаны", 15 }
-                }, new List<int>()
-                {
-                    { 235 },
-                    { 45 },
-                    { 115 },
-                }, new List<string>()
-                {
-                    { "Курица" }
-                }, new List<string>()
-                {
-                    { "Тыква" },
-                    { "Баклажан" },
-                    { "Помидоры" },
-                    { "Перцы" },
-                    { "Клубника" },
                 }));
 
             ApplicationConfiguration.Initialize();

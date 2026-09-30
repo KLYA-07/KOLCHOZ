@@ -325,6 +325,11 @@ namespace WinFormsPresentation
         {
             string newValue = cattleName.Text.TrimStart().TrimEnd();
 
+            if (newValue == editingfarmer.cattleHeadboard[cattleList.SelectedIndex])
+            {
+                return;
+            }
+
             if (newValue == string.Empty)
             {
                 MessageBox.Show("Пустая строка. Введите конкретное наименование.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -412,6 +417,11 @@ namespace WinFormsPresentation
         private void cultureName_Validating(object sender, CancelEventArgs e)
         {
             string newValue = cultureName.Text.TrimStart().TrimEnd();
+
+            if (newValue == editingfarmer.cultivatingCrops[cultureList.SelectedIndex])
+            {
+                return;
+            }
 
             if (newValue == string.Empty)
             {
