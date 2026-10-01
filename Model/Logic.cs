@@ -1,4 +1,6 @@
-﻿namespace Model
+﻿using DataAccessLayer;
+
+namespace Model
 {
     public class Logic
     {
