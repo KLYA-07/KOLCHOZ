@@ -25,94 +25,64 @@ namespace ConsolePresentation
         {
             bool a = true;
 
-            logic.AddFarmer(new Farmer("Юзя", 2500, 300, new Dictionary<string, int>() { { "Кукуруза", 12 }, { "Свекла", 10 }, { "Картошка", 30 },
-    { "Томаты", 12 }, { "Морковка", 20 }, { "Коровы", 26 }, { "Свиньи", 52 } }, [25, 10, 5, 8, 3, 400, 150], ["Кукуруза", "Свекла", "Картошка", "Томаты", "Морковка"], ["Коровы", "Свиньи"]));
-
             logic.AddFarmer(new Farmer("Рома", 1700, 200, new Dictionary<string, int>() { { "Кукуруза", 8 }, { "Свекла", 5 }, { "Картошка", 40 },
     { "Томаты", 4 }, { "Морковка", 2 }, { "Коровы", 30 }, { "Свиньи", 32 } }, [20, 9, 7, 9, 6, 400, 150], ["Кукуруза", "Свекла", "Картошка", "Томаты", "Морковка"], ["Коровы", "Свиньи"]));
+            logic.AddFarmer(new Farmer("Юзя", 2500, 300, new Dictionary<string, int>() { { "Кукуруза", 12 }, { "Свекла", 10 }, { "Картошка", 30 },
+    { "Томаты", 12 }, { "Морковка", 20 }, { "Коровы", 26 }, { "Свиньи", 52 } }, [25, 10, 5, 8, 3, 400, 150], ["Кукуруза", "Свекла", "Картошка", "Томаты", "Морковка"], ["Коровы", "Свиньи"]));
             while (a)
             {
                 Console.WriteLine();
                 ShowFarmers();
                 Console.WriteLine("\nМеню:\n1 - Добавить фермера\n2 - Удалить фермера\n3 - Просмотреть фермера\n4 - Изменить фермера\n5 - Устроить куплепродажу\n6 - Сортировать урожай\n0 - Выход");
 
-                switch (Convert.ToInt32(Console.ReadLine()))
+                switch (Proverka(0, 2, true))
                 {
                     case 1:
                         logic.AddFarmer(Call());
+                        Console.Clear();
                         break;
                     case 2:
                         Console.WriteLine("Кого по счету вы уберете?");
-                        int d = Convert.ToInt32(Console.ReadLine());
-                        if (d > 0 && d <= logic.AllFarmers.Count)
-                        {
-                            logic.RemoveFarmer(d - 1);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Такого номера у нас нет");
-                        }
+                        int d = Proverka(1, 2, true);
+                        logic.RemoveFarmer(d - 1);
+                        
+                        Console.Clear();
                         break;
                     case 3:
                         Console.WriteLine("Кого по счету вы просмотрите полностью?");
-                        int e = Convert.ToInt32(Console.ReadLine());
-                        if (e > 0 && e <= logic.AllFarmers.Count)
-                        {
-                            Farmer farmer = logic.ReadFarmer(e - 1);
-
-                            string farmerInfo = $"Имя фермера: {farmer.farmerName}\nФинансовый капитал: {farmer.finacialCapital} руб.\nРазмер поля: {farmer.fieldSize} Г\nРазмер урожая: ";
-
-                            for (int i = 0; i < farmer.lastHarvest.Count; i++)
-                            {
-                                var item = farmer.lastHarvest.ElementAt(i);
-                                var fhc = farmer.harvestCosts;
-                                farmerInfo += $"{item.Key}: {item.Value} (Цена: {fhc[i]} за шт.); ";
-                            }
-                            farmerInfo = farmerInfo.TrimEnd(' ', ';');
-
-                            farmerInfo += "\nПоголовье скота: ";
-
-                            foreach (var item in farmer.cattleHeadboard)
-                            {
-                                farmerInfo += $"{item}; ";
-                            }
-                            farmerInfo = farmerInfo.TrimEnd(' ', ';');
-
-                            farmerInfo += "\nВыращиваемые культуры: ";
-
-                            foreach (var item in farmer.cultivatingCrops)
-                            {
-                                farmerInfo += $"{item}; ";
-                            }
-                            farmerInfo = farmerInfo.TrimEnd(' ', ';');
-                            Console.WriteLine(farmerInfo);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Такого номера у нас нет");
-                        }
+                        int e = Proverka(1, 2, true);
+                        Show(e);
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
                     case 4:
                         Console.WriteLine("Кого поменяете?");
                         int t = Proverka(1, logic.AllFarmers.Count, false);
+                        
                         Console.WriteLine("Хотите его поменять полностью?\n1. Да\n2. Нет");
                         int chs1 = Proverka(1, 2, false);
+
                         switch (chs1)
                         {
                             case 1:
+                                Show(t);
                                 logic.ChangeFarmer(t - 1, Call());
+
                                 break;
                             case 2:
                                 Farmer nf = logic.AllFarmers[t - 1];
                                 bool rut = true;
                                 while (rut)
                                 {
+                                    Console.Clear();
+                                    Show(t);
                                     Console.WriteLine("Что вы хотите поменять?\n1. Имя\n2. Финансы\n3. Размер поля\n4. Продукты на продажу (заодно и цены)\n5. Стоимости продуктов\n6. Нынешнюю скотину\n7. Нынешние культуры\n0. Хватит изменений");
                                     int chs2 = Proverka(0, 7, false);
                                     switch (chs2)
                                     {
                                         case 0:
                                             rut = false;
+                                            Console.Clear();
                                             break;
                                         case 1:
                                             Console.WriteLine("Как теперь его будут звать?");
@@ -198,7 +168,9 @@ namespace ConsolePresentation
                                                 }
                                             }
                                             break;
+
                                         case 5:
+
                                             for (int i = 0; i < nf.harvestCosts.Count; i++)
                                             {
                                                 Console.WriteLine($"Сколько стоить будет {nf.lastHarvest.ElementAt(i)}. Сейчас он стоит - {nf.harvestCosts[i]}");
@@ -236,29 +208,48 @@ namespace ConsolePresentation
                                 logic.ChangeFarmer(t - 1, nf);
                                 break;
                         }
-
+                        Console.Clear();
                         break;
                     case 5:
+                        if (logic.AllFarmers.Count < 2)
+                        {
+                            Console.WriteLine("Недостаточно фермеров");
+                            break;
+                        }
                         Console.WriteLine("Введите номер покупателя");
                         int payerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
                         Console.WriteLine("Введите номер продавца");
                         int sellerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
-                        Farmer seller = logic.AllFarmers[sellerFarmerIndex - 1];
-                        for (int i = 0; i < seller.lastHarvest.Count; i++)
+                        
+                        if (payerFarmerIndex==sellerFarmerIndex)
                         {
-                            var s = seller.lastHarvest.ElementAt(i);
-                            Console.WriteLine($"{i + 1}. {s.Key}, {s.Value} шт. - {seller.harvestCosts[i]} руб.");
+                            
+                            while (payerFarmerIndex == sellerFarmerIndex)
+                            {
+                                Console.WriteLine("Вы выбрали одного и того же фермера. Попробуйте снова.");
+                                sellerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
+                            }
                         }
-                        Console.WriteLine($"\nНа счете покупателя: {logic.AllFarmers[payerFarmerIndex].finacialCapital}");
-                        Console.WriteLine("\nЧто покупают? (введите номер)");
-                        int itemindex = Proverka(1, seller.harvestCosts.Count, false);
-                        Console.WriteLine("Сколько покупают?");
-                        int itemval = Proverka(1, seller.lastHarvest.ElementAt(itemindex - 1).Value, false);
-                        logic.ExchangeProducts(payerFarmerIndex - 1, sellerFarmerIndex - 1, itemindex - 1, itemval);
+                        
+                            Farmer seller = logic.AllFarmers[sellerFarmerIndex - 1];
+                            for (int i = 0; i < seller.lastHarvest.Count; i++)
+                            {
+                                var s = seller.lastHarvest.ElementAt(i);
+                                Console.WriteLine($"{i + 1}. {s.Key}, {s.Value} шт. - {seller.harvestCosts[i]} руб.");
+                            }
+                            Console.WriteLine($"\nНа счете покупателя: {logic.AllFarmers[payerFarmerIndex].finacialCapital}");
+                            Console.WriteLine("\nЧто покупают? (введите номер)");
+                            int itemindex = Proverka(1, seller.harvestCosts.Count, false);
+                            Console.WriteLine("Сколько покупают?");
+                            int itemval = Proverka(1, seller.lastHarvest.ElementAt(itemindex - 1).Value, false);
+                            logic.ExchangeProducts(payerFarmerIndex - 1, sellerFarmerIndex - 1, itemindex - 1, itemval);
+                            Console.Clear();
+                        
                         break;
                     case 6:
+                        Console.Clear();
                         logic.HarvestSort();
-                        ShowFarmers();
+                        
                         break;
                     case 0:
                         a = false;
@@ -309,15 +300,8 @@ namespace ConsolePresentation
                 while (cost <= 0)
                 {
                     Console.WriteLine($"Сколько у него стоит {lh.Key}");
-                    cost = Convert.ToInt32(Console.ReadLine());
-                    if (cost > 0)
-                    {
-                        harvestCosts.Add(cost);
-                    }
-                    else
-                    {
-                        Console.WriteLine("Попробуйте снова");
-                    }
+                    cost = Proverka(1, 2, true);
+                    harvestCosts.Add(cost);
                 }
             }
             Console.WriteLine("Сколько у него скотины?");
@@ -388,6 +372,50 @@ namespace ConsolePresentation
                         return value;
                     Console.WriteLine("Попробуйте еще раз");
                 }
+            }
+        }
+
+        /// <summary>
+        /// Выводит в консоль подробную информацию о фермере по его номеру (e).
+        /// Если номер вне диапазона 1..logic.AllFarmers.Count — выводит сообщение об отсутствии.
+        /// </summary>
+
+        public static void Show(int e)
+        {
+            if (e > 0 && e <= logic.AllFarmers.Count)
+            {
+                Farmer farmer = logic.ReadFarmer(e - 1);
+
+                string farmerInfo = $"Имя фермера: {farmer.farmerName}\nФинансовый капитал: {farmer.finacialCapital} руб.\nРазмер поля: {farmer.fieldSize} Г\nРазмер урожая: ";
+
+                for (int i = 0; i < farmer.lastHarvest.Count; i++)
+                {
+                    var item = farmer.lastHarvest.ElementAt(i);
+                    var fhc = farmer.harvestCosts;
+                    farmerInfo += $"{item.Key}: {item.Value} (Цена: {fhc[i]} за шт.); ";
+                }
+                farmerInfo = farmerInfo.TrimEnd(' ', ';');
+
+                farmerInfo += "\nПоголовье скота: ";
+
+                foreach (var item in farmer.cattleHeadboard)
+                {
+                    farmerInfo += $"{item}; ";
+                }
+                farmerInfo = farmerInfo.TrimEnd(' ', ';');
+
+                farmerInfo += "\nВыращиваемые культуры: ";
+
+                foreach (var item in farmer.cultivatingCrops)
+                {
+                    farmerInfo += $"{item}; ";
+                }
+                farmerInfo = farmerInfo.TrimEnd(' ', ';');
+                Console.WriteLine(farmerInfo);
+            }
+            else
+            {
+                Console.WriteLine("Такого номера у нас нет");
             }
         }
     }
