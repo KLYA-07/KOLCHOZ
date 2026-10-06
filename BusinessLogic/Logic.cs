@@ -1,17 +1,23 @@
 ﻿using Model;
 using DataAccessLayer;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BusinessLogic
 {
     public class Logic
     {
-        private List<Farmer> allFarmers = new List<Farmer>();
+        private IRepository<Farmer> allFarmers;
+        
+        public Logic(IRepository<Farmer> repository)
+        {
+            allFarmers = repository;
+        }
 
         public List<Farmer> AllFarmers
         {
             get
             {
-                return allFarmers;
+                return allFarmers.ReadAll().ToList();
             }
         }
 
@@ -21,7 +27,7 @@ namespace BusinessLogic
         /// <param name="farmer"></param>
         public void AddFarmer(Farmer farmer)
         {
-            allFarmers.Add(farmer);
+            allFarmers.Create(farmer);
         }
 
         /// <summary>
@@ -30,10 +36,7 @@ namespace BusinessLogic
         /// <param name="farmerIndex">Индекс фермера в списке</param>
         public void RemoveFarmer(int farmerIndex)
         {
-            if(farmerIndex >= 0 && farmerIndex < allFarmers.Count)
-            {
-                allFarmers.RemoveAt(farmerIndex);
-            }
+            allFarmers.Delete(allFarmers.ReadByID(farmerIndex));
         }
 
         /// <summary>
@@ -43,7 +46,7 @@ namespace BusinessLogic
         /// <returns></returns>
         public Farmer ReadFarmer(int farmerIndex)
         {
-            return allFarmers[farmerIndex];
+            return allFarmers.ReadByID(farmerIndex);
         }
 
         /// <summary>
@@ -53,8 +56,7 @@ namespace BusinessLogic
         /// <param name="farmer">Экземпляр фермера, на которого нужно заменить</param>
         public void ChangeFarmer(int farmerIndex, Farmer farmer)
         {
-            allFarmers.RemoveAt(farmerIndex);
-            allFarmers.Insert(farmerIndex, farmer);
+            allFarmers.Update(farmer);
         }
 
         /// <summary>
@@ -67,8 +69,8 @@ namespace BusinessLogic
         /// <returns></returns>
         public bool ExchangeProducts(int payerFarmerIndex, int sellerFarmerIndex, int itemIndex, int itemsCount)
         {
-            Farmer payer = allFarmers[payerFarmerIndex];
-            Farmer seller = allFarmers[sellerFarmerIndex];
+            Farmer payer = allFarmers.ReadByID(payerFarmerIndex);
+            Farmer seller = allFarmers.ReadByID(sellerFarmerIndex);
 
             int sum = seller.harvestCosts[itemIndex] * itemsCount;
             string product = seller.lastHarvest.Keys.ToList()[itemIndex];
@@ -93,6 +95,9 @@ namespace BusinessLogic
                     seller.harvestCosts.RemoveAt(itemIndex);
                 }
 
+                allFarmers.Update(payer);
+                allFarmers.Update(seller);
+
                 return true;
             }
             else
@@ -106,7 +111,7 @@ namespace BusinessLogic
         /// </summary>
         public void HarvestSort()
         {
-            allFarmers = allFarmers.OrderByDescending(h =>
+            List<Farmer> farmers = allFarmers.ReadAll().OrderByDescending(h =>
             {
                 int sum = 0;
                 foreach (var item in h.lastHarvest)
@@ -116,6 +121,14 @@ namespace BusinessLogic
 
                 return sum;
             }).ToList();
+
+            List<int> IDs = allFarmers.ReadAll().Select(f => f.ID).ToList();
+
+            for(int i = 0; i < IDs.Count; i++)
+            {
+                farmers[i].ID = IDs[i];
+                allFarmers.Update(farmers[i]);
+            }
         }
     }
 }
