@@ -1,8 +1,5 @@
 ﻿using Model;
-using System;
-using System.Reflection.Metadata;
-using System.Xml.Linq;
-using System.Xml.Serialization;
+using BusinessLogic;
 
 namespace ConsolePresentation
 {

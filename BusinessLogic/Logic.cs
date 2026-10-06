@@ -1,4 +1,7 @@
-﻿namespace Model
+﻿using Model;
+using DataAccessLayer;
+
+namespace BusinessLogic
 {
     public class Logic
     {

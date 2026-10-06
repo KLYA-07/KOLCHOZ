@@ -1,7 +1,8 @@
 ﻿namespace Model
 {
-    public class Farmer
+    public class Farmer : IDomainObject
     {
+        public int ID { get; set; }
         public string farmerName { get; set; } = string.Empty;
         public int finacialCapital { get; set; }
         public float fieldSize { get; set; }
