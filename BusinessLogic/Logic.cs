@@ -5,7 +5,7 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        private List<Farmer> allFarmers = new List<Farmer>();
+        private List<Farmer> allFarmers;
 
         public List<Farmer> AllFarmers
         {
