@@ -1,6 +1,4 @@
-﻿using DataAccessLayer;
-
-namespace Model
+﻿namespace Model
 {
     public class Farmer : IDomainObject
     {

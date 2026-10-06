@@ -1,4 +1,4 @@
-﻿namespace DataAccessLayer
+﻿namespace Model
 {
     public interface IDomainObject
     {

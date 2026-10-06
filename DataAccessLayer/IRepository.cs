@@ -1,4 +1,6 @@
-﻿namespace DataAccessLayer
+﻿using Model;
+
+namespace DataAccessLayer
 {
     public interface IRepository<T> where T : IDomainObject, new()
     {
