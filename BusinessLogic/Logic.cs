@@ -66,7 +66,7 @@ namespace BusinessLogic
         /// <param name="itemIndex">Индекс продукта в списке урожая фермера-продавца</param>
         /// <param name="itemsCount">Количество покупаемых предметов</param>
         /// <returns></returns>
-        public bool ExchangeProducts(int payerFarmerIndex, int sellerFarmerIndex, int itemIndex, int itemsCount)
+        public bool GroupByFarmType(int payerFarmerIndex, int sellerFarmerIndex, int itemIndex, int itemsCount)
         {
             Farmer payer = allFarmers.ReadByID(payerFarmerIndex);
             Farmer seller = allFarmers.ReadByID(sellerFarmerIndex);
