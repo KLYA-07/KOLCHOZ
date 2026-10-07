@@ -7,11 +7,6 @@ namespace DataAccessLayer
     {
         public DbSet<Farmer> Farmers { get; set; }
 
-        public EFDBContext(DbContextOptions<EFDBContext> options) : base(options)
-        {
-
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)

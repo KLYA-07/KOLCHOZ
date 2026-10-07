@@ -1,6 +1,5 @@
 ﻿using Model;
 using DataAccessLayer;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace BusinessLogic
 {

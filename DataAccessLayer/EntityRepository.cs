@@ -6,9 +6,9 @@ namespace DataAccessLayer
     {
         private EFDBContext dbContext;
 
-        public EntityRepository(EFDBContext context)
+        public EntityRepository()
         {
-            dbContext = context;
+            dbContext = new EFDBContext();
         }
 
         public void Create(Farmer obj)
