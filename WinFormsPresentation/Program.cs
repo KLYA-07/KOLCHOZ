@@ -1,5 +1,7 @@
 using Model;
 using BusinessLogic;
+using DataAccessLayer;
+using Microsoft.EntityFrameworkCore;
 
 namespace WinFormsPresentation
 {
@@ -13,7 +15,7 @@ namespace WinFormsPresentation
         [STAThread]
         static void Main()
         {
-            logic = new Logic();
+            logic = new Logic(new EntityRepository());
 
             logic.AddFarmer(new Farmer("Юыху", 39600, 98.7f,
                 new Dictionary<string, int>()

@@ -14,7 +14,7 @@ namespace WinFormsPresentation
 
             farmerName.Text += farmer.farmerName;
             financialCapital.Text += farmer.finacialCapital;
-            fieldSize.Text += farmer.fieldSize;
+            fieldSize.Text += farmer.fieldArea;
 
             for(int p = 0; p < farmer.lastHarvest.Count; p++)
             {

@@ -5,13 +5,19 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        private List<Farmer> allFarmers = new List<Farmer>();
+        private const float fieldUnitCost = 15525;
+        private List<Farmer> allFarmers;
 
-        public List<Farmer> AllFarmers
+        public Logic()
+        {
+            allFarmers = new List<Farmer>();
+        }
+
+        public List<string> AllFarmers
         {
             get
             {
-                return allFarmers;
+                return allFarmers.Select(f => $"{f.farmerName} {f.farmerSurname} ({f.finacialCapital}₽)").ToList();
             }
         }
 
@@ -30,10 +36,7 @@ namespace BusinessLogic
         /// <param name="farmerIndex">Индекс фермера в списке</param>
         public void RemoveFarmer(int farmerIndex)
         {
-            if(farmerIndex >= 0 && farmerIndex < allFarmers.Count)
-            {
-                allFarmers.RemoveAt(farmerIndex);
-            }
+            allFarmers.RemoveAt(farmerIndex);
         }
 
         /// <summary>
@@ -58,40 +61,26 @@ namespace BusinessLogic
         }
 
         /// <summary>
-        /// Метод, осуществляющий продажу между фермерами
+        /// Метод, осуществляющий продажу земли между фермерами
         /// </summary>
         /// <param name="payerFarmerIndex">Индекс фермера-покупателя в списке</param>
         /// <param name="sellerFarmerIndex">Индекс фермера-продавца в списке</param>
-        /// <param name="itemIndex">Индекс продукта в списке урожая фермера-продавца</param>
-        /// <param name="itemsCount">Количество покупаемых предметов</param>
+        /// <param name="fieldArea">Площадб покупаемой земли</param>
         /// <returns></returns>
-        public bool ExchangeProducts(int payerFarmerIndex, int sellerFarmerIndex, int itemIndex, int itemsCount)
+        public bool GroupByFarmType(int payerFarmerIndex, int sellerFarmerIndex, int fieldArea)
         {
             Farmer payer = allFarmers[payerFarmerIndex];
             Farmer seller = allFarmers[sellerFarmerIndex];
 
-            int sum = seller.harvestCosts[itemIndex] * itemsCount;
-            string product = seller.lastHarvest.Keys.ToList()[itemIndex];
+            decimal sum = (decimal)(fieldUnitCost * fieldArea);
 
-            if (payer.finacialCapital >= sum && seller.lastHarvest[product] >= itemsCount)
+            if (payer.finacialCapital >= sum && seller.fieldArea >= fieldArea)
             {
                 payer.finacialCapital -= sum;
                 seller.finacialCapital += sum;
 
-                if (!payer.lastHarvest.ContainsKey(product))
-                {
-                    payer.lastHarvest.Add(product, 0);
-                    payer.harvestCosts.Add(seller.harvestCosts[itemIndex]);
-                }
-
-                payer.lastHarvest[product] += itemsCount;
-                seller.lastHarvest[product] -= itemsCount;
-
-                if(seller.lastHarvest[product] == 0)
-                {
-                    seller.lastHarvest.Remove(product);
-                    seller.harvestCosts.RemoveAt(itemIndex);
-                }
+                payer.fieldArea += fieldArea;
+                seller.fieldArea -= fieldArea;
 
                 return true;
             }
@@ -102,20 +91,11 @@ namespace BusinessLogic
         }
 
         /// <summary>
-        /// Метод, осуществляющий сортировку списка фермеров по общему объему собранного урожая
+        /// Метод, осуществляющий сортировку списка фермеров по финансовому капиталу
         /// </summary>
         public void HarvestSort()
         {
-            allFarmers = allFarmers.OrderByDescending(h =>
-            {
-                int sum = 0;
-                foreach (var item in h.lastHarvest)
-                {
-                    sum += item.Value;
-                }
-
-                return sum;
-            }).ToList();
+            allFarmers = allFarmers.OrderByDescending(f => f.finacialCapital).ToList();
         }
     }
 }

@@ -1,25 +1,26 @@
 ﻿namespace Model
 {
-    public class Farmer : IDomainObject
+    public class Farmer
     {
-        public int ID { get; set; }
-        public string farmerName { get; set; } = string.Empty;
-        public int finacialCapital { get; set; }
-        public float fieldSize { get; set; }
-        public Dictionary<string, int> lastHarvest { get; set; } = new Dictionary<string, int>();
-        public List<int> harvestCosts { get; set; } = new List<int>();
-        public List<string> cattleHeadboard { get; set; } = new List<string>();
-        public List<string> cultivatingCrops { get; set; } = new List<string>();
+        public string farmerName { get; set; }
+        public string farmerSurname { get; set; }
+        public string phoneNumber { get; set; }
+        public decimal finacialCapital { get; set; }
+        public float fieldArea { get; set; }
+        public string farmAddress { get; set; }
+        public string farmType { get; set; }
+        public DateTime registrationDate { get; set; }
 
-        public Farmer(string farmerName, int finacialCapital, float fieldSize, Dictionary<string, int> lastHarvest, List<int> harvestCosts, List<string> cattleHeadboard, List<string> cultivatingCrops)
+        public Farmer()
         {
-            this.farmerName = farmerName;
-            this.finacialCapital = finacialCapital;
-            this.fieldSize = fieldSize;
-            this.lastHarvest = lastHarvest;
-            this.harvestCosts = harvestCosts;
-            this.cattleHeadboard = cattleHeadboard;
-            this.cultivatingCrops = cultivatingCrops;
+            farmerName = "Иван";
+            farmerSurname = "Иванов";
+            phoneNumber = "+1234567890";
+            finacialCapital = 0;
+            fieldArea = 0;
+            farmAddress = string.Empty;
+            farmType = "Смешанный";
+            registrationDate = DateTime.Now;
         }
     }
 }

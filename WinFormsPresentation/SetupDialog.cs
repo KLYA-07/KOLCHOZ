@@ -17,13 +17,13 @@ namespace WinFormsPresentation
         {
             sentFarmer = farmer;
 
-            editingfarmer = new Farmer(sentFarmer.farmerName, sentFarmer.finacialCapital, sentFarmer.fieldSize, new Dictionary<string, int>(sentFarmer.lastHarvest), new List<int>(sentFarmer.harvestCosts), new List<string>(sentFarmer.cattleHeadboard), new List<string>(sentFarmer.cultivatingCrops));
+            editingfarmer = new Farmer(sentFarmer.farmerName, sentFarmer.finacialCapital, sentFarmer.fieldArea, new Dictionary<string, int>(sentFarmer.lastHarvest), new List<int>(sentFarmer.harvestCosts), new List<string>(sentFarmer.cattleHeadboard), new List<string>(sentFarmer.cultivatingCrops));
 
             InitializeComponent();
 
             farmerName.Text = farmer.farmerName;
             financialCapital.Text = farmer.finacialCapital.ToString();
-            fieldSize.Text = farmer.fieldSize.ToString();
+            fieldSize.Text = farmer.fieldArea.ToString();
 
             foreach(string item in new List<string>(farmer.lastHarvest.Keys.ToList()))
             {
@@ -110,7 +110,7 @@ namespace WinFormsPresentation
             }
             else
             {
-                editingfarmer.fieldSize = value;
+                editingfarmer.fieldArea = value;
             }
         }
 
@@ -474,7 +474,7 @@ namespace WinFormsPresentation
         {
             sentFarmer.farmerName = editingfarmer.farmerName;
             sentFarmer.finacialCapital = editingfarmer.finacialCapital;
-            sentFarmer.fieldSize = editingfarmer.fieldSize;
+            sentFarmer.fieldArea = editingfarmer.fieldArea;
             sentFarmer.lastHarvest = editingfarmer.lastHarvest;
             sentFarmer.harvestCosts = editingfarmer.harvestCosts;
             sentFarmer.cattleHeadboard = editingfarmer.cattleHeadboard;

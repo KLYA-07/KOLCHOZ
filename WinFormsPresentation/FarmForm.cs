@@ -71,7 +71,7 @@ namespace WinFormsPresentation
         private void SetupFarmer(int index)
         {
             Farmer neededfarmer = logic.AllFarmers[index];
-            Farmer sendFarmer = new Farmer(neededfarmer.farmerName, neededfarmer.finacialCapital, neededfarmer.fieldSize, new Dictionary<string, int>(neededfarmer.lastHarvest), new List<int>(neededfarmer.harvestCosts), new List<string>(neededfarmer.cattleHeadboard), new List<string>(neededfarmer.cultivatingCrops));
+            Farmer sendFarmer = new Farmer(neededfarmer.farmerName, neededfarmer.finacialCapital, neededfarmer.fieldArea, new Dictionary<string, int>(neededfarmer.lastHarvest), new List<int>(neededfarmer.harvestCosts), new List<string>(neededfarmer.cattleHeadboard), new List<string>(neededfarmer.cultivatingCrops));
 
             SetupDialog setupDialog = new SetupDialog(sendFarmer);
             setupDialog.ShowDialog(this);
