@@ -1,4 +1,5 @@
 ﻿using Model;
+using System.Security.Cryptography;
 
 namespace DataAccessLayer
 {
@@ -32,12 +33,13 @@ namespace DataAccessLayer
             Farmer origin = dbContext.Farmers.Where(o => o.ID == obj.ID).FirstOrDefault();
 
             origin.farmerName = obj.farmerName;
+            origin.farmerSurname = obj.farmerSurname;
+            origin.phoneNumber = obj.phoneNumber;
             origin.finacialCapital = obj.finacialCapital;
-            origin.fieldSize = obj.fieldSize;
-            origin.lastHarvest = obj.lastHarvest;
-            origin.harvestCosts = obj.harvestCosts;
-            origin.cattleHeadboard = obj.cattleHeadboard;
-            origin.cultivatingCrops = obj.cultivatingCrops;
+            origin.fieldArea = obj.fieldArea;
+            origin.farmAddress = obj.farmAddress;
+            origin.farmType = obj.farmType;
+            origin.registrationDate = obj.registrationDate;
 
             dbContext.SaveChanges();
         }

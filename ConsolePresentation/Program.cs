@@ -97,7 +97,7 @@ namespace ConsolePresentation
                                             break;
                                         case 3:
                                             Console.WriteLine("Какое у него будет поле?");
-                                            nf.fieldSize = Proverka(1, 2, true);
+                                            nf.fieldArea = Proverka(1, 2, true);
                                             break;
                                         case 4:
                                             bool rutProducts = true;
@@ -383,7 +383,7 @@ namespace ConsolePresentation
             {
                 Farmer farmer = logic.ReadFarmer(e - 1);
 
-                string farmerInfo = $"Имя фермера: {farmer.farmerName}\nФинансовый капитал: {farmer.finacialCapital} руб.\nРазмер поля: {farmer.fieldSize} Г\nРазмер урожая: ";
+                string farmerInfo = $"Имя фермера: {farmer.farmerName}\nФинансовый капитал: {farmer.finacialCapital} руб.\nРазмер поля: {farmer.fieldArea} Г\nРазмер урожая: ";
 
                 for (int i = 0; i < farmer.lastHarvest.Count; i++)
                 {
