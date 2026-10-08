@@ -5,7 +5,7 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        private const float fieldUnitCost = 15525;
+        public const float fieldUnitCost = 15525;
         private List<Farmer> allFarmers;
 
         public Logic()
@@ -67,7 +67,7 @@ namespace BusinessLogic
         /// <param name="sellerFarmerIndex">Индекс фермера-продавца в списке</param>
         /// <param name="fieldArea">Площадб покупаемой земли</param>
         /// <returns></returns>
-        public bool GroupByFarmType(int payerFarmerIndex, int sellerFarmerIndex, int fieldArea)
+        public bool GroupByFarmType(int payerFarmerIndex, int sellerFarmerIndex, float fieldArea)
         {
             Farmer payer = allFarmers[payerFarmerIndex];
             Farmer seller = allFarmers[sellerFarmerIndex];
