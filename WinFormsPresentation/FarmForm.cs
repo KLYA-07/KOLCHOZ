@@ -27,9 +27,9 @@ namespace WinFormsPresentation
         {
             farmerList.Items.Clear();
 
-            foreach (Farmer farmer in logic.AllFarmers)
+            foreach (string farmer in logic.AllFarmers)
             {
-                farmerList.Items.Add(farmer.farmerName);
+                farmerList.Items.Add(farmer);
             }
         }
 
@@ -40,7 +40,7 @@ namespace WinFormsPresentation
         /// <param name="e"></param>
         private void addButton_Click(object sender, EventArgs e)
         {
-            Farmer farmer = new Farmer("Новый фермер", 0, 0, new Dictionary<string, int>(), new List<int>(), new List<string>(), new List<string>());
+            Farmer farmer = new Farmer();
             logic.AddFarmer(farmer);
 
             SetupFarmer(logic.AllFarmers.Count - 1);
@@ -70,8 +70,18 @@ namespace WinFormsPresentation
         /// <param name="index">Индекс выбранного фермера (сущности)</param>
         private void SetupFarmer(int index)
         {
-            Farmer neededfarmer = logic.AllFarmers[index];
-            Farmer sendFarmer = new Farmer(neededfarmer.farmerName, neededfarmer.finacialCapital, neededfarmer.fieldArea, new Dictionary<string, int>(neededfarmer.lastHarvest), new List<int>(neededfarmer.harvestCosts), new List<string>(neededfarmer.cattleHeadboard), new List<string>(neededfarmer.cultivatingCrops));
+            Farmer neededfarmer = logic.ReadFarmer(index);
+            Farmer sendFarmer = new Farmer()
+            {
+                farmerName = neededfarmer.farmerName,
+                farmerSurname = neededfarmer.farmerSurname,
+                registrationDate = neededfarmer.registrationDate,
+                finacialCapital = neededfarmer.finacialCapital,
+                farmAddress = neededfarmer.farmAddress,
+                farmType = neededfarmer.farmType,
+                fieldArea = neededfarmer.fieldArea,
+                phoneNumber = neededfarmer.phoneNumber
+            };
 
             SetupDialog setupDialog = new SetupDialog(sendFarmer);
             setupDialog.ShowDialog(this);
@@ -119,7 +129,7 @@ namespace WinFormsPresentation
                 return;
             }
 
-            Farmer farmer = logic.AllFarmers[farmerList.SelectedIndex];
+            Farmer farmer = logic.ReadFarmer(farmerList.SelectedIndex);
 
             ReadDialog readDialog = new ReadDialog(farmer);
             readDialog.ShowDialog(this);
@@ -153,8 +163,8 @@ namespace WinFormsPresentation
             int payerIndex = farmerList.SelectedIndices[0];
             int sellerIndex = farmerList.SelectedIndices[1];
 
-            Farmer payer = logic.AllFarmers[payerIndex];
-            Farmer seller = logic.AllFarmers[sellerIndex];
+            Farmer payer = logic.ReadFarmer(payerIndex);
+            Farmer seller = logic.ReadFarmer(sellerIndex);
 
             ExchangeDialog exchangeDialog = new ExchangeDialog(payer, seller);
             exchangeDialog.ShowDialog(this);
@@ -165,11 +175,17 @@ namespace WinFormsPresentation
                 {
                     if (exchangeDialog.isOppositeOrder)
                     {
-                        logic.ExchangeProducts(sellerIndex, payerIndex, exchangeDialog.selectedProduct, exchangeDialog.exchangeCount);
+                        if(!logic.GroupByFarmType(sellerIndex, payerIndex, exchangeDialog.exchangeArea))
+                        {
+                            MessageBox.Show("Ошибка продажи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
                     else
                     {
-                        logic.ExchangeProducts(payerIndex, sellerIndex, exchangeDialog.selectedProduct, exchangeDialog.exchangeCount);
+                        if(!logic.GroupByFarmType(payerIndex, sellerIndex, exchangeDialog.exchangeArea))
+                        {
+                            MessageBox.Show("Ошибка продажи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        }
                     }
 
                     exchangeDialog.ShowDialog(this);

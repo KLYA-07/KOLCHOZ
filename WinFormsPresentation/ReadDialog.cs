@@ -13,23 +13,14 @@ namespace WinFormsPresentation
             InitializeComponent();
 
             farmerName.Text += farmer.farmerName;
+            farmerSurname.Text += farmer.farmerSurname;
+            phoneNumber.Text += phoneNumber.Text;
             financialCapital.Text += farmer.finacialCapital;
-            fieldSize.Text += farmer.fieldArea;
-
-            for(int p = 0; p < farmer.lastHarvest.Count; p++)
-            {
-                harvestList.Items.Add($"{farmer.lastHarvest.Keys.ToList()[p]} - Кол-во: {farmer.lastHarvest.Values.ToList()[p]} - Цена за шт: {farmer.harvestCosts[p]}");
-            }
-
-            for (int c = 0; c < farmer.cattleHeadboard.Count; c++)
-            {
-                cattleList.Items.Add(farmer.cattleHeadboard[c]);
-            }
-
-            for (int c = 0; c < farmer.cultivatingCrops.Count; c++)
-            {
-                cultureList.Items.Add(farmer.cultivatingCrops[c]);
-            }
+            fieldArea.Text += farmer.fieldArea;
+            farmType.Text += farmer.farmType;
+            farmAddress.Text += farmer.farmAddress;
+            registrationDate.Text += farmer.registrationDate.ToString();
+            
         }
     }
 }

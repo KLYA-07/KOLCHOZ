@@ -34,7 +34,7 @@
             readFarmer = new Button();
             changeFarmer = new Button();
             exchangeProduct = new Button();
-            harvestSort = new Button();
+            capitalSort = new Button();
             title = new Label();
             SuspendLayout();
             // 
@@ -98,15 +98,15 @@
             exchangeProduct.UseVisualStyleBackColor = true;
             exchangeProduct.Click += exchangeProduct_Click;
             // 
-            // harvestSort
+            // capitalSort
             // 
-            harvestSort.Location = new Point(434, 714);
-            harvestSort.Name = "harvestSort";
-            harvestSort.Size = new Size(283, 34);
-            harvestSort.TabIndex = 6;
-            harvestSort.Text = "Отсортировать по урожаю";
-            harvestSort.UseVisualStyleBackColor = true;
-            harvestSort.Click += harvestSort_Click;
+            capitalSort.Location = new Point(434, 714);
+            capitalSort.Name = "capitalSort";
+            capitalSort.Size = new Size(283, 34);
+            capitalSort.TabIndex = 6;
+            capitalSort.Text = "Отсортировать по капиталу";
+            capitalSort.UseVisualStyleBackColor = true;
+            capitalSort.Click += harvestSort_Click;
             // 
             // title
             // 
@@ -124,7 +124,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 827);
             Controls.Add(title);
-            Controls.Add(harvestSort);
+            Controls.Add(capitalSort);
             Controls.Add(exchangeProduct);
             Controls.Add(changeFarmer);
             Controls.Add(readFarmer);
@@ -146,7 +146,7 @@
         private Button readFarmer;
         private Button changeFarmer;
         private Button exchangeProduct;
-        private Button harvestSort;
+        private Button capitalSort;
         private Label title;
     }
 }

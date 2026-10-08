@@ -31,20 +31,19 @@
             title = new Label();
             farmerName = new Label();
             financialCapital = new Label();
-            fieldSize = new Label();
-            harvestList = new ListBox();
-            label1 = new Label();
-            label2 = new Label();
-            cattleList = new ListBox();
-            label3 = new Label();
-            cultureList = new ListBox();
+            fieldArea = new Label();
+            farmerSurname = new Label();
+            phoneNumber = new Label();
+            farmAddress = new Label();
+            farmType = new Label();
+            registrationDate = new Label();
             SuspendLayout();
             // 
             // title
             // 
             title.AutoSize = true;
             title.Font = new Font("Segoe UI", 15F);
-            title.Location = new Point(314, 9);
+            title.Location = new Point(171, 9);
             title.Name = "title";
             title.Size = new Size(360, 41);
             title.TabIndex = 0;
@@ -52,7 +51,7 @@
             // 
             // farmerName
             // 
-            farmerName.Location = new Point(266, 65);
+            farmerName.Location = new Point(123, 65);
             farmerName.Name = "farmerName";
             farmerName.Size = new Size(433, 33);
             farmerName.TabIndex = 1;
@@ -61,91 +60,78 @@
             // 
             // financialCapital
             // 
-            financialCapital.Location = new Point(266, 98);
+            financialCapital.Location = new Point(123, 164);
             financialCapital.Name = "financialCapital";
             financialCapital.Size = new Size(433, 33);
             financialCapital.TabIndex = 2;
             financialCapital.Text = "Финансовый капитал: ";
             financialCapital.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // fieldSize
+            // fieldArea
             // 
-            fieldSize.Location = new Point(266, 131);
-            fieldSize.Name = "fieldSize";
-            fieldSize.Size = new Size(433, 33);
-            fieldSize.TabIndex = 3;
-            fieldSize.Text = "Размер поля: ";
-            fieldSize.TextAlign = ContentAlignment.MiddleCenter;
+            fieldArea.Location = new Point(123, 197);
+            fieldArea.Name = "fieldArea";
+            fieldArea.Size = new Size(433, 33);
+            fieldArea.TabIndex = 3;
+            fieldArea.Text = "Площадь поля: ";
+            fieldArea.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // harvestList
+            // farmerSurname
             // 
-            harvestList.FormattingEnabled = true;
-            harvestList.ItemHeight = 25;
-            harvestList.Location = new Point(231, 200);
-            harvestList.Name = "harvestList";
-            harvestList.SelectionMode = SelectionMode.None;
-            harvestList.Size = new Size(514, 154);
-            harvestList.TabIndex = 4;
+            farmerSurname.Location = new Point(123, 98);
+            farmerSurname.Name = "farmerSurname";
+            farmerSurname.Size = new Size(433, 33);
+            farmerSurname.TabIndex = 6;
+            farmerSurname.Text = "Фамилия фермера: ";
+            farmerSurname.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label1
+            // phoneNumber
             // 
-            label1.Location = new Point(266, 164);
-            label1.Name = "label1";
-            label1.Size = new Size(433, 33);
-            label1.TabIndex = 5;
-            label1.Text = "Состав урожая:";
-            label1.TextAlign = ContentAlignment.MiddleCenter;
+            phoneNumber.Location = new Point(123, 131);
+            phoneNumber.Name = "phoneNumber";
+            phoneNumber.Size = new Size(433, 33);
+            phoneNumber.TabIndex = 7;
+            phoneNumber.Text = "Номер телефона:";
+            phoneNumber.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label2
+            // farmAddress
             // 
-            label2.Location = new Point(266, 357);
-            label2.Name = "label2";
-            label2.Size = new Size(433, 33);
-            label2.TabIndex = 7;
-            label2.Text = "Набор выращиваемого скота:";
-            label2.TextAlign = ContentAlignment.MiddleCenter;
+            farmAddress.Location = new Point(123, 230);
+            farmAddress.Name = "farmAddress";
+            farmAddress.Size = new Size(433, 33);
+            farmAddress.TabIndex = 8;
+            farmAddress.Text = "Адрес фермы: ";
+            farmAddress.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // cattleList
+            // farmType
             // 
-            cattleList.FormattingEnabled = true;
-            cattleList.ItemHeight = 25;
-            cattleList.Location = new Point(231, 393);
-            cattleList.Name = "cattleList";
-            cattleList.SelectionMode = SelectionMode.None;
-            cattleList.Size = new Size(514, 154);
-            cattleList.TabIndex = 6;
+            farmType.Location = new Point(123, 263);
+            farmType.Name = "farmType";
+            farmType.Size = new Size(433, 33);
+            farmType.TabIndex = 9;
+            farmType.Text = "Тип фермы:";
+            farmType.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // registrationDate
             // 
-            label3.Location = new Point(266, 550);
-            label3.Name = "label3";
-            label3.Size = new Size(433, 33);
-            label3.TabIndex = 9;
-            label3.Text = "Набор выращиваемых культур:";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // cultureList
-            // 
-            cultureList.FormattingEnabled = true;
-            cultureList.ItemHeight = 25;
-            cultureList.Location = new Point(231, 586);
-            cultureList.Name = "cultureList";
-            cultureList.SelectionMode = SelectionMode.None;
-            cultureList.Size = new Size(514, 154);
-            cultureList.TabIndex = 8;
+            registrationDate.Location = new Point(123, 296);
+            registrationDate.Name = "registrationDate";
+            registrationDate.Size = new Size(433, 33);
+            registrationDate.TabIndex = 10;
+            registrationDate.Text = "Дата регистрации:";
+            registrationDate.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ReadDialog
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(968, 812);
-            Controls.Add(label3);
-            Controls.Add(cultureList);
-            Controls.Add(label2);
-            Controls.Add(cattleList);
-            Controls.Add(label1);
-            Controls.Add(harvestList);
-            Controls.Add(fieldSize);
+            ClientSize = new Size(711, 812);
+            Controls.Add(registrationDate);
+            Controls.Add(farmType);
+            Controls.Add(farmAddress);
+            Controls.Add(phoneNumber);
+            Controls.Add(farmerSurname);
+            Controls.Add(fieldArea);
             Controls.Add(financialCapital);
             Controls.Add(farmerName);
             Controls.Add(title);
@@ -163,12 +149,11 @@
         private Label title;
         private Label farmerName;
         private Label financialCapital;
-        private Label fieldSize;
-        private ListBox harvestList;
-        private Label label1;
-        private Label label2;
-        private ListBox cattleList;
-        private Label label3;
-        private ListBox cultureList;
+        private Label fieldArea;
+        private Label farmerSurname;
+        private Label phoneNumber;
+        private Label farmAddress;
+        private Label farmType;
+        private Label registrationDate;
     }
 }

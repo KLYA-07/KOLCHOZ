@@ -5,7 +5,7 @@ namespace BusinessLogic
 {
     public class Logic
     {
-        private const float fieldUnitCost = 15525;
+        public const float fieldUnitCost = 15525;
         private List<Farmer> allFarmers;
 
         public Logic()

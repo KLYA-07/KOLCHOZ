@@ -33,14 +33,12 @@
             sellerName = new Label();
             switchButton = new Button();
             financialCapital = new Label();
-            allProducts = new ComboBox();
-            productCount = new TextBox();
-            productTotalCount = new Label();
             exchangeSum = new Label();
             exchangeButton = new Button();
-            productCost = new Label();
             label2 = new Label();
-            label1 = new Label();
+            totalFieldArea = new Label();
+            fieldArea = new TextBox();
+            fieldCost = new Label();
             SuspendLayout();
             // 
             // title
@@ -94,35 +92,6 @@
             financialCapital.Text = "Имеющийся капитал: ";
             financialCapital.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // allProducts
-            // 
-            allProducts.DropDownStyle = ComboBoxStyle.DropDownList;
-            allProducts.FormattingEnabled = true;
-            allProducts.Location = new Point(669, 221);
-            allProducts.Name = "allProducts";
-            allProducts.Size = new Size(182, 33);
-            allProducts.TabIndex = 5;
-            allProducts.SelectedIndexChanged += allProducts_SelectedIndexChanged;
-            // 
-            // productCount
-            // 
-            productCount.Location = new Point(70, 283);
-            productCount.Name = "productCount";
-            productCount.Size = new Size(150, 31);
-            productCount.TabIndex = 6;
-            productCount.KeyDown += LeaveEditingOnEnter;
-            productCount.Validating += productCount_Validating;
-            // 
-            // productTotalCount
-            // 
-            productTotalCount.BorderStyle = BorderStyle.FixedSingle;
-            productTotalCount.Location = new Point(633, 299);
-            productTotalCount.Name = "productTotalCount";
-            productTotalCount.Size = new Size(252, 32);
-            productTotalCount.TabIndex = 7;
-            productTotalCount.Text = "Количество: ";
-            productTotalCount.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // exchangeSum
             // 
             exchangeSum.BorderStyle = BorderStyle.FixedSingle;
@@ -143,16 +112,6 @@
             exchangeButton.UseVisualStyleBackColor = true;
             exchangeButton.Click += exchangeButton_Click;
             // 
-            // productCost
-            // 
-            productCost.BorderStyle = BorderStyle.FixedSingle;
-            productCost.Location = new Point(633, 267);
-            productCost.Name = "productCost";
-            productCost.Size = new Size(252, 32);
-            productCost.TabIndex = 10;
-            productCost.Text = "Цена: ";
-            productCost.TextAlign = ContentAlignment.MiddleCenter;
-            // 
             // label2
             // 
             label2.BorderStyle = BorderStyle.FixedSingle;
@@ -160,36 +119,52 @@
             label2.Name = "label2";
             label2.Size = new Size(271, 108);
             label2.TabIndex = 11;
-            label2.Text = "Количество выбранного товара:";
+            label2.Text = "Площадь земли для покупки:";
             label2.TextAlign = ContentAlignment.TopCenter;
             // 
-            // label1
+            // totalFieldArea
             // 
-            label1.BorderStyle = BorderStyle.FixedSingle;
-            label1.Location = new Point(633, 176);
-            label1.Name = "label1";
-            label1.Size = new Size(252, 91);
-            label1.TabIndex = 12;
-            label1.Text = "Все товары:";
-            label1.TextAlign = ContentAlignment.TopCenter;
+            totalFieldArea.BorderStyle = BorderStyle.FixedSingle;
+            totalFieldArea.Location = new Point(633, 176);
+            totalFieldArea.Name = "totalFieldArea";
+            totalFieldArea.Size = new Size(252, 91);
+            totalFieldArea.TabIndex = 12;
+            totalFieldArea.Text = "Площадь имеющейся земли:";
+            totalFieldArea.TextAlign = ContentAlignment.TopCenter;
+            // 
+            // fieldArea
+            // 
+            fieldArea.Location = new Point(64, 281);
+            fieldArea.Name = "fieldArea";
+            fieldArea.Size = new Size(168, 31);
+            fieldArea.TabIndex = 13;
+            fieldArea.Validating += fieldArea_Validating;
+            // 
+            // fieldCost
+            // 
+            fieldCost.BorderStyle = BorderStyle.FixedSingle;
+            fieldCost.Location = new Point(633, 267);
+            fieldCost.Name = "fieldCost";
+            fieldCost.Size = new Size(252, 64);
+            fieldCost.TabIndex = 14;
+            fieldCost.Text = "Цена за Га:";
+            fieldCost.TextAlign = ContentAlignment.TopCenter;
             // 
             // ExchangeDialog
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(897, 406);
-            Controls.Add(productCost);
+            Controls.Add(fieldCost);
+            Controls.Add(fieldArea);
             Controls.Add(exchangeButton);
             Controls.Add(exchangeSum);
-            Controls.Add(productTotalCount);
-            Controls.Add(productCount);
-            Controls.Add(allProducts);
             Controls.Add(financialCapital);
             Controls.Add(switchButton);
             Controls.Add(sellerName);
             Controls.Add(payerName);
             Controls.Add(title);
-            Controls.Add(label1);
+            Controls.Add(totalFieldArea);
             Controls.Add(label2);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
@@ -216,6 +191,8 @@
         private Button exchangeButton;
         private Label productCost;
         private Label label2;
-        private Label label1;
+        private Label totalFieldArea;
+        private TextBox fieldArea;
+        private Label fieldCost;
     }
 }
