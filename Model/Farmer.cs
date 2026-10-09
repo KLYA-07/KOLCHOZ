@@ -16,9 +16,9 @@
             farmerName = "Иван";
             farmerSurname = "Иванов";
             phoneNumber = "+1234567890";
-            finacialCapital = 0;
-            fieldArea = 0;
-            farmAddress = string.Empty;
+            finacialCapital = 10000;
+            fieldArea = 20;
+            farmAddress = "Улица Пушкина, дом Колотушкина";
             farmType = "Смешанный";
             registrationDate = DateTime.Now;
         }
