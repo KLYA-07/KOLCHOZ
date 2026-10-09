@@ -92,7 +92,7 @@ namespace WinFormsPresentation
         {
             if (exchangeResult <= 0)
             {
-                if((float)payer.finacialCapital < exchangeArea * Program.FieldUnitCost)
+                if(exchangeResult == 0)
                 {
                     MessageBox.Show("Недостаточно средств.", "Ошибка оплаты", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }

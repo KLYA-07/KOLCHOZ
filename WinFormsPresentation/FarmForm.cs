@@ -175,17 +175,11 @@ namespace WinFormsPresentation
                 {
                     if (exchangeDialog.isOppositeOrder)
                     {
-                        if(logic.GroupByFarmType(sellerIndex, payerIndex, exchangeDialog.exchangeArea) )
-                        {
-                            exchangeDialog.exchangeResult = true;
-                        }
+                        exchangeDialog.exchangeResult = logic.GroupByFarmType(sellerIndex, payerIndex, exchangeDialog.exchangeArea);
                     }
                     else
                     {
-                        if(!logic.GroupByFarmType(payerIndex, sellerIndex, exchangeDialog.exchangeArea))
-                        {
-                            exchangeDialog.exchangeResult = true;
-                        }
+                        exchangeDialog.exchangeResult = logic.GroupByFarmType(payerIndex, sellerIndex, exchangeDialog.exchangeArea);
                     }
 
                     exchangeDialog.ShowDialog(this);
