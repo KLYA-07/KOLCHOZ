@@ -127,7 +127,7 @@ namespace ConsolePresentation
                         bool da = true;
                         while (da)
                         {
-                            int gbft = logic.GroupByFarmType(payerFarmerIndex - 1, sellerFarmerIndex - 1, FProverka());
+                            int gbft = logic.ExchangeField(payerFarmerIndex - 1, sellerFarmerIndex - 1, FProverka());
                             if (gbft==-1)
                             {
                                 Console.WriteLine("Произошла ошибка. У продавца меньше земли чем хочет покупатель.\nПопробуете снова? 1 - да, 2 - нет");
@@ -155,7 +155,7 @@ namespace ConsolePresentation
                         break;
                     case 6:
                         Console.Clear();
-                        logic.HarvestSort();
+                        logic.CapitalSort();
 
                         break;
                     case 0:

@@ -5,11 +5,11 @@ namespace DataAccessLayer
 {
     public class EntityRepository : IRepository<Farmer>
     {
-        private EFDBContext dbContext;
+        private EntityDBContext dbContext;
 
         public EntityRepository()
         {
-            dbContext = new EFDBContext();
+            dbContext = new EntityDBContext();
         }
 
         public void Create(Farmer obj)

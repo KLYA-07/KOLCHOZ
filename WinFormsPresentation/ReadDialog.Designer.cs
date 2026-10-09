@@ -91,7 +91,7 @@
             phoneNumber.Name = "phoneNumber";
             phoneNumber.Size = new Size(433, 33);
             phoneNumber.TabIndex = 7;
-            phoneNumber.Text = "Номер телефона:";
+            phoneNumber.Text = "Номер телефона: ";
             phoneNumber.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // farmAddress
@@ -109,7 +109,7 @@
             farmType.Name = "farmType";
             farmType.Size = new Size(433, 33);
             farmType.TabIndex = 9;
-            farmType.Text = "Тип фермы:";
+            farmType.Text = "Тип фермы: ";
             farmType.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // registrationDate
@@ -118,7 +118,7 @@
             registrationDate.Name = "registrationDate";
             registrationDate.Size = new Size(433, 33);
             registrationDate.TabIndex = 10;
-            registrationDate.Text = "Дата регистрации:";
+            registrationDate.Text = "Дата регистрации: ";
             registrationDate.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // ReadDialog

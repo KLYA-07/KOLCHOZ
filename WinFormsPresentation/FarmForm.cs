@@ -7,6 +7,8 @@ namespace WinFormsPresentation
     {
         private Logic logic;
 
+        private List<int> farmersCut;
+
         /// <summary>
         /// Конструктор, который инициализирует основную форму: обновляет список фермеров
         /// </summary>
@@ -16,6 +18,8 @@ namespace WinFormsPresentation
             InitializeComponent();
 
             this.logic = logic;
+
+            farmType.SelectedIndex = 0;
 
             RefreshFarmersList();
         }
@@ -27,9 +31,19 @@ namespace WinFormsPresentation
         {
             farmerList.Items.Clear();
 
-            foreach (string farmer in logic.AllFarmers)
+            if(farmersCut == null)
             {
-                farmerList.Items.Add(farmer);
+                foreach (string farmer in logic.AllFarmers)
+                {
+                    farmerList.Items.Add(farmer);
+                }
+            }
+            else
+            {
+                foreach (int index in farmersCut)
+                {
+                    farmerList.Items.Add(logic.AllFarmers[index]);
+                }
             }
         }
 
@@ -73,6 +87,7 @@ namespace WinFormsPresentation
             Farmer neededfarmer = logic.ReadFarmer(index);
             Farmer sendFarmer = new Farmer()
             {
+                ID = neededfarmer.ID,
                 farmerName = neededfarmer.farmerName,
                 farmerSurname = neededfarmer.farmerSurname,
                 registrationDate = neededfarmer.registrationDate,
@@ -88,7 +103,7 @@ namespace WinFormsPresentation
 
             RefreshFarmersList();
 
-            logic.ChangeFarmer(index, sendFarmer);
+            logic.ChangeFarmer(sendFarmer);
 
             RefreshFarmersList();
         }
@@ -136,18 +151,6 @@ namespace WinFormsPresentation
         }
 
         /// <summary>
-        /// Метод события нажания кнопки сортировки фермеров, который осцуществляет бизнес-функцию сортировки фермеров по объему урожая и обновляет ListBox фермеров
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void harvestSort_Click(object sender, EventArgs e)
-        {
-            logic.HarvestSort();
-
-            RefreshFarmersList();
-        }
-
-        /// <summary>
         /// Метод события нажатия кнопки продажи урожая фермеров, который открывает диалог купли-продажи урожая фермеров и после подтверждения продажи осуществляет бизнес-функцию продажи в логике
         /// </summary>
         /// <param name="sender"></param>
@@ -175,17 +178,31 @@ namespace WinFormsPresentation
                 {
                     if (exchangeDialog.isOppositeOrder)
                     {
-                        exchangeDialog.exchangeResult = logic.GroupByFarmType(sellerIndex, payerIndex, exchangeDialog.exchangeArea);
+                        exchangeDialog.exchangeResult = logic.ExchangeField(sellerIndex, payerIndex, exchangeDialog.exchangeArea);
                     }
                     else
                     {
-                        exchangeDialog.exchangeResult = logic.GroupByFarmType(payerIndex, sellerIndex, exchangeDialog.exchangeArea);
+                        exchangeDialog.exchangeResult = logic.ExchangeField(payerIndex, sellerIndex, exchangeDialog.exchangeArea);
                     }
 
                     exchangeDialog.ShowDialog(this);
                 }
             }
             while (exchangeDialog.DialogResult == DialogResult.OK);
+        }
+
+        private void groupByType_Click(object sender, EventArgs e)
+        {
+            if(farmType.SelectedIndex > 0)
+            {
+                farmersCut = logic.FarmTypeGroup(farmType.Text);
+            }
+            else
+            {
+                farmersCut = null;
+            }
+
+            RefreshFarmersList();
         }
     }
 }

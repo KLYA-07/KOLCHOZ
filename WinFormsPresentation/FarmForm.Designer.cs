@@ -34,8 +34,9 @@
             readFarmer = new Button();
             changeFarmer = new Button();
             exchangeProduct = new Button();
-            capitalSort = new Button();
             title = new Label();
+            farmType = new ComboBox();
+            groupByType = new Button();
             SuspendLayout();
             // 
             // farmerList
@@ -98,16 +99,6 @@
             exchangeProduct.UseVisualStyleBackColor = true;
             exchangeProduct.Click += exchangeProduct_Click;
             // 
-            // capitalSort
-            // 
-            capitalSort.Location = new Point(434, 714);
-            capitalSort.Name = "capitalSort";
-            capitalSort.Size = new Size(283, 34);
-            capitalSort.TabIndex = 6;
-            capitalSort.Text = "Отсортировать по капиталу";
-            capitalSort.UseVisualStyleBackColor = true;
-            capitalSort.Click += harvestSort_Click;
-            // 
             // title
             // 
             title.AutoSize = true;
@@ -118,13 +109,34 @@
             title.TabIndex = 7;
             title.Text = "Фермеры";
             // 
+            // farmType
+            // 
+            farmType.DropDownStyle = ComboBoxStyle.DropDownList;
+            farmType.FormattingEnabled = true;
+            farmType.Items.AddRange(new object[] { "Все", "Растениеводство", "Скотоводство", "Пчеловодство", "Смешанный" });
+            farmType.Location = new Point(434, 716);
+            farmType.Name = "farmType";
+            farmType.Size = new Size(283, 33);
+            farmType.TabIndex = 8;
+            // 
+            // groupByType
+            // 
+            groupByType.Location = new Point(434, 755);
+            groupByType.Name = "groupByType";
+            groupByType.Size = new Size(283, 34);
+            groupByType.TabIndex = 9;
+            groupByType.Text = "Показать группу";
+            groupByType.UseVisualStyleBackColor = true;
+            groupByType.Click += groupByType_Click;
+            // 
             // FarmForm
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 827);
+            Controls.Add(groupByType);
+            Controls.Add(farmType);
             Controls.Add(title);
-            Controls.Add(capitalSort);
             Controls.Add(exchangeProduct);
             Controls.Add(changeFarmer);
             Controls.Add(readFarmer);
@@ -146,7 +158,8 @@
         private Button readFarmer;
         private Button changeFarmer;
         private Button exchangeProduct;
-        private Button capitalSort;
         private Label title;
+        private ComboBox farmType;
+        private Button groupByType;
     }
 }

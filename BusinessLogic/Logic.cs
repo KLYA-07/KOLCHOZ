@@ -1,4 +1,5 @@
-﻿using Model;
+﻿using DataAccessLayer;
+using Model;
 //using DataAccessLayer;
 
 namespace BusinessLogic
@@ -6,18 +7,26 @@ namespace BusinessLogic
     public class Logic
     {
         public const float fieldUnitCost = 15525;
-        private List<Farmer> allFarmers;
+        private IRepository<Farmer> allFarmers;
 
-        public Logic()
+        public Logic(IRepository<Farmer> repository)
         {
-            allFarmers = new List<Farmer>();
+            allFarmers = repository;
         }
 
         public List<string> AllFarmers
         {
             get
             {
-                return allFarmers.Select(f => $"{f.farmerName} {f.farmerSurname} ({f.finacialCapital}₽)").ToList();
+                return allFarmers.ReadAll().ToList().Select(f => $"{f.farmerName} {f.farmerSurname} ({f.finacialCapital}₽)").ToList();
+            }
+        }
+
+        public List<int> AllFarmersIDs
+        {
+            get
+            {
+                return allFarmers.ReadAll().ToList().Select(f => f.ID).ToList();
             }
         }
 
@@ -27,7 +36,7 @@ namespace BusinessLogic
         /// <param name="farmer"></param>
         public void AddFarmer(Farmer farmer)
         {
-            allFarmers.Add(farmer);
+            allFarmers.Create(farmer);
         }
 
         /// <summary>
@@ -36,7 +45,7 @@ namespace BusinessLogic
         /// <param name="farmerIndex">Индекс фермера в списке</param>
         public void RemoveFarmer(int farmerIndex)
         {
-            allFarmers.RemoveAt(farmerIndex);
+            allFarmers.Delete(allFarmers.ReadByID(AllFarmersIDs[farmerIndex]));
         }
 
         /// <summary>
@@ -46,18 +55,16 @@ namespace BusinessLogic
         /// <returns></returns>
         public Farmer ReadFarmer(int farmerIndex)
         {
-            return allFarmers[farmerIndex];
+            return allFarmers.ReadByID(AllFarmersIDs[farmerIndex]);
         }
 
         /// <summary>
         /// Метод, меняющий фермера в списке путем замены
         /// </summary>
-        /// <param name="farmerIndex">Индекс выбранного фермера в списке</param>
         /// <param name="farmer">Экземпляр фермера, на которого нужно заменить</param>
-        public void ChangeFarmer(int farmerIndex, Farmer farmer)
+        public void ChangeFarmer(Farmer farmer)
         {
-            allFarmers.RemoveAt(farmerIndex);
-            allFarmers.Insert(farmerIndex, farmer);
+            allFarmers.Update(farmer);
         }
 
         /// <summary>
@@ -65,12 +72,12 @@ namespace BusinessLogic
         /// </summary>
         /// <param name="payerFarmerIndex">Индекс фермера-покупателя в списке</param>
         /// <param name="sellerFarmerIndex">Индекс фермера-продавца в списке</param>
-        /// <param name="fieldArea">Площадб покупаемой земли</param>
+        /// <param name="fieldArea">Площадь покупаемой земли</param>
         /// <returns></returns>
-        public int GroupByFarmType(int payerFarmerIndex, int sellerFarmerIndex, float fieldArea)
+        public int ExchangeField(int payerFarmerIndex, int sellerFarmerIndex, float fieldArea)
         {
-            Farmer payer = allFarmers[payerFarmerIndex];
-            Farmer seller = allFarmers[sellerFarmerIndex];
+            Farmer payer = allFarmers.ReadByID(AllFarmersIDs[payerFarmerIndex]);
+            Farmer seller = allFarmers.ReadByID(AllFarmersIDs[sellerFarmerIndex]);
 
             decimal sum = (decimal)(fieldUnitCost * fieldArea);
 
@@ -81,6 +88,9 @@ namespace BusinessLogic
 
                 payer.fieldArea += fieldArea;
                 seller.fieldArea -= fieldArea;
+
+                allFarmers.Update(payer);
+                allFarmers.Update(seller);
 
                 return 1;
             }
@@ -100,9 +110,9 @@ namespace BusinessLogic
         /// <summary>
         /// Метод, осуществляющий сортировку списка фермеров по финансовому капиталу
         /// </summary>
-        public void HarvestSort()
+        public List<int> FarmTypeGroup(string farmType)
         {
-            allFarmers = allFarmers.OrderByDescending(f => f.finacialCapital).ToList();
+            return allFarmers.ReadAll().Where(f => f.farmType == farmType).Select(f => allFarmers.ReadAll().ToList().IndexOf(f)).ToList();
         }
     }
 }
