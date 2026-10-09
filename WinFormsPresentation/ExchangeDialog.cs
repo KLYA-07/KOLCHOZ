@@ -10,7 +10,7 @@ namespace WinFormsPresentation
 
         public float exchangeArea;
         public bool isOppositeOrder;
-        public bool isUnsucceed;
+        public int exchangeResult = 1;
 
         /// <summary>
         /// Конструктор, который инициализирует форму осуществления купли-продажи между двумя фермерами: устанавливает изначальные значения всех полей формы
@@ -90,7 +90,7 @@ namespace WinFormsPresentation
         /// <param name="e"></param>
         private void ExchangeDialog_Load(object sender, EventArgs e)
         {
-            if (isUnsucceed)
+            if (exchangeResult <= 0)
             {
                 if((float)payer.finacialCapital < exchangeArea * Program.FieldUnitCost)
                 {
@@ -100,8 +100,6 @@ namespace WinFormsPresentation
                 {
                     MessageBox.Show("Выбранная площадь превосходит площадь продажи.", "Ошибка оплаты", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
-
-                isUnsucceed = false;
             }
 
             FlipExchangeField();
