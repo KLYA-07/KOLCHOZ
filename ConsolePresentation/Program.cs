@@ -46,7 +46,7 @@ namespace ConsolePresentation
                         Console.WriteLine("Кого по счету вы просмотрите полностью?");
                         Farmer farmer = logic.ReadFarmer(Proverka(1, logic.AllFarmers.Count, false) - 1);
                         Console.WriteLine($"Имя: {farmer.farmerName}\nФамилия: {farmer.farmerSurname}\nНомер телефона: {farmer.phoneNumber}\nКапитал: {farmer.finacialCapital}\n" +
-                            $"Размер поля: {farmer.fieldArea}\nАддрес {farmer.farmAddress}:\nТип хозяйства: {farmer.farmType}\nДата регистрации: {farmer.registrationDate.ToLongDateString()}");
+                            $"Размер поля: {farmer.fieldArea}\nАдрес: {farmer.farmAddress}\nТип хозяйства: {farmer.farmType}\nДата регистрации: {farmer.registrationDate.ToLongDateString()}");
                         Console.ReadKey();
                         break;
                     case 4:
@@ -57,7 +57,7 @@ namespace ConsolePresentation
                         while (rut)
                         {
                             Console.Clear();
-                            Console.WriteLine("Что вы хотите поменять?\n1. Имя\n2. Фамилию\n3. Номер телефона\n4. Капитал\n5. Размер поля\n6. Аддрес\n7. Тип хозяйства\n8. Дату регистрации\n0. Хватит изменений");
+                            Console.WriteLine("Что вы хотите поменять?\n1. Имя\n2. Фамилию\n3. Номер телефона\n4. Капитал\n5. Размер поля\n6. Адрес\n7. Тип хозяйства\n8. Дату регистрации\n0. Хватит изменений");
                             int chs2 = Proverka(0, 8, false);
                             switch (chs2)
                             {
@@ -127,17 +127,29 @@ namespace ConsolePresentation
                         bool da = true;
                         while (da)
                         {
-                            if (!logic.GroupByFarmType(payerFarmerIndex - 1, sellerFarmerIndex - 1, FProverka()))
+                            int gbft = logic.GroupByFarmType(payerFarmerIndex - 1, sellerFarmerIndex - 1, FProverka());
+                            if (gbft==-1)
                             {
-                                Console.WriteLine("Произошла ошибка. Попробуете снова? 1 - да, 2 - нет");
+                                Console.WriteLine("Произошла ошибка. У продавца меньше земли чем хочет покупатель.\nПопробуете снова? 1 - да, 2 - нет");
                                 if (Proverka(1, 2, false) == 2) {
                                     da = false;
                                 }
                             }
                             else
                             {
-                                Console.WriteLine("Сделка прошло успешно");
-                                da = false;
+                                if (gbft == 0)
+                                {
+                                    Console.WriteLine("Произошла ошибка. У покупателя недостатолчно средств.\nПопробуете снова? 1 - да, 2 - нет");
+                                    if (Proverka(1, 2, false) == 2)
+                                    {
+                                        da = false;
+                                    }
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Сделка прошло успешно");
+                                    da = false;
+                                }
                             }
                         }
                         break;
