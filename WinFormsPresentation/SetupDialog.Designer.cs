@@ -114,7 +114,7 @@
             // 
             // saveFarmer
             // 
-            saveFarmer.Location = new Point(159, 534);
+            saveFarmer.Location = new Point(171, 448);
             saveFarmer.Name = "saveFarmer";
             saveFarmer.Size = new Size(222, 34);
             saveFarmer.TabIndex = 39;
@@ -186,7 +186,7 @@
             // 
             farmType.DropDownStyle = ComboBoxStyle.DropDownList;
             farmType.FormattingEnabled = true;
-            farmType.Items.AddRange(new object[] { "Растениеводство", "Скотоводство", "Смешанный" });
+            farmType.Items.AddRange(new object[] { "Растениеводство", "Скотоводство", "Пчеловодство", "Смешанный" });
             farmType.Location = new Point(273, 309);
             farmType.Name = "farmType";
             farmType.Size = new Size(240, 33);
@@ -214,7 +214,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(614, 834);
+            ClientSize = new Size(614, 529);
             Controls.Add(label8);
             Controls.Add(registrationDate);
             Controls.Add(farmType);

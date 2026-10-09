@@ -38,8 +38,8 @@ namespace WinFormsPresentation
             financialCapital.Text = farmer.finacialCapital.ToString();
             fieldSize.Text = farmer.fieldArea.ToString();
             farmAddress.Text = farmer.farmAddress;
-            farmType.Text = farmer.farmType;
-            registrationDate.Text = farmer.registrationDate.ToString();
+            farmType.SelectedIndex = farmType.FindStringExact(farmer.farmType);
+            registrationDate.Value = farmer.registrationDate;
         }
 
         private bool ValidateText(string text)
@@ -59,7 +59,7 @@ namespace WinFormsPresentation
         {
             if (ValidateText(text))
             {
-                if (!int.TryParse(financialCapital.Text, out int value) || value < 0)
+                if (!int.TryParse(text, out int value) || value < 0)
                 {
                     MessageBox.Show("В этом поле разрешены только неотрицательные числа.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return -1;
@@ -109,7 +109,33 @@ namespace WinFormsPresentation
             {
                 e.Cancel = true;
             }
-            editingfarmer.phoneNumber = newValue;
+            else
+            {
+                if (newValue.ToList()[0] == '+')
+                {
+                    if (long.TryParse(newValue.Split('+').Last(), out long value) && value >= 0)
+                    {
+                        editingfarmer.phoneNumber = newValue;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неверный формат номера телефона.", "Ошибка формата", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        e.Cancel = true;
+                    }
+                }
+                else
+                {
+                    if (long.TryParse(newValue, out long value) && value >= 0)
+                    {
+                        editingfarmer.phoneNumber = newValue;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Неверный формат номера телефона.", "Ошибка формата", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        e.Cancel = true;
+                    }
+                }
+            }
         }
 
         /// <summary>
@@ -210,17 +236,20 @@ namespace WinFormsPresentation
             {
                 e.Cancel = true;
             }
-            editingfarmer.farmAddress = newValue;
+            else
+            {
+                editingfarmer.farmAddress = newValue;
+            }
         }
 
         private void farmType_Validating(object sender, CancelEventArgs e)
         {
-            editingfarmer.farmAddress = farmType.Text;
+            editingfarmer.farmType = farmType.Text;
         }
 
         private void registrationDate_Validating(object sender, CancelEventArgs e)
         {
-
+            editingfarmer.registrationDate = registrationDate.Value;
         }
     }
 }

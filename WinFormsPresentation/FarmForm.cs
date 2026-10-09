@@ -177,14 +177,14 @@ namespace WinFormsPresentation
                     {
                         if(!logic.GroupByFarmType(sellerIndex, payerIndex, exchangeDialog.exchangeArea))
                         {
-                            MessageBox.Show("Ошибка продажи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            exchangeDialog.isUnsucceed = true;
                         }
                     }
                     else
                     {
                         if(!logic.GroupByFarmType(payerIndex, sellerIndex, exchangeDialog.exchangeArea))
                         {
-                            MessageBox.Show("Ошибка продажи.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            exchangeDialog.isUnsucceed = true;
                         }
                     }
 

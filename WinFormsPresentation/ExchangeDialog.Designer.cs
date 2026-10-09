@@ -184,12 +184,8 @@
         private Label sellerName;
         private Button switchButton;
         private Label financialCapital;
-        private ComboBox allProducts;
-        private TextBox productCount;
-        private Label productTotalCount;
         private Label exchangeSum;
         private Button exchangeButton;
-        private Label productCost;
         private Label label2;
         private Label totalFieldArea;
         private TextBox fieldArea;

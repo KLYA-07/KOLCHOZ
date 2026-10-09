@@ -45,7 +45,7 @@ namespace WinFormsPresentation
                 fieldArea = 42,
                 finacialCapital = 350000,
                 farmAddress = "д. Простоквашино, 12",
-                farmType = "Животноводство",
+                farmType = "Скотоводство",
                 registrationDate = new DateTime(2021, 5, 14)
             });
 

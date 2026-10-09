@@ -14,7 +14,7 @@ namespace WinFormsPresentation
 
             farmerName.Text += farmer.farmerName;
             farmerSurname.Text += farmer.farmerSurname;
-            phoneNumber.Text += phoneNumber.Text;
+            phoneNumber.Text += farmer.phoneNumber;
             financialCapital.Text += farmer.finacialCapital;
             fieldArea.Text += farmer.fieldArea;
             farmType.Text += farmer.farmType;

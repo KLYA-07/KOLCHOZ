@@ -9,8 +9,8 @@ namespace WinFormsPresentation
         private Farmer seller;
 
         public float exchangeArea;
-
         public bool isOppositeOrder;
+        public bool isUnsucceed;
 
         /// <summary>
         /// Конструктор, который инициализирует форму осуществления купли-продажи между двумя фермерами: устанавливает изначальные значения всех полей формы
@@ -26,8 +26,7 @@ namespace WinFormsPresentation
 
             FlipExchangeField();
 
-            productCount.Text = "0";
-            fieldCost.Text = Program.FieldUnitCost.ToString();
+            fieldCost.Text = fieldCost.Text.Split(":").First() + ": " + Program.FieldUnitCost.ToString();
         }
 
         /// <summary>
@@ -52,8 +51,6 @@ namespace WinFormsPresentation
         /// </summary>
         private void FlipExchangeField()
         {
-            allProducts.Items.Clear();
-
             payerName.Text = payerName.Text.Split(':').First() + ": " + payer.farmerName;
             sellerName.Text = sellerName.Text.Split(':').First() + ": " + seller.farmerName;
 
@@ -93,6 +90,20 @@ namespace WinFormsPresentation
         /// <param name="e"></param>
         private void ExchangeDialog_Load(object sender, EventArgs e)
         {
+            if (isUnsucceed)
+            {
+                if((float)payer.finacialCapital < exchangeArea * Program.FieldUnitCost)
+                {
+                    MessageBox.Show("Недостаточно средств.", "Ошибка оплаты", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                else
+                {
+                    MessageBox.Show("Выбранная площадь превосходит площадь продажи.", "Ошибка оплаты", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
+                isUnsucceed = false;
+            }
+
             FlipExchangeField();
         }
 
@@ -128,13 +139,13 @@ namespace WinFormsPresentation
 
         private void fieldArea_Validating(object sender, CancelEventArgs e)
         {
-            string text = fieldArea.Text.Trim();
+            string text = fieldArea.Text.TrimStart().TrimEnd();
 
             if(text != string.Empty)
             {
-                if(float.TryParse(text, out float value) && value > 0)
+                if(!float.TryParse(text, out float value) || value <= 0)
                 {
-                    MessageBox.Show("Значение должно быть больше нуля.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Значение должно быть числом больше нуля.", "Ошибка ввода", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     e.Cancel = true;
                 }
                 else
