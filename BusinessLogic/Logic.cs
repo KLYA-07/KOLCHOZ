@@ -67,7 +67,7 @@ namespace BusinessLogic
         /// <param name="sellerFarmerIndex">Индекс фермера-продавца в списке</param>
         /// <param name="fieldArea">Площадб покупаемой земли</param>
         /// <returns></returns>
-        public bool GroupByFarmType(int payerFarmerIndex, int sellerFarmerIndex, float fieldArea)
+        public int GroupByFarmType(int payerFarmerIndex, int sellerFarmerIndex, float fieldArea)
         {
             Farmer payer = allFarmers[payerFarmerIndex];
             Farmer seller = allFarmers[sellerFarmerIndex];
@@ -82,11 +82,18 @@ namespace BusinessLogic
                 payer.fieldArea += fieldArea;
                 seller.fieldArea -= fieldArea;
 
-                return true;
+                return 1;
             }
             else
             {
-                return false;
+                if(seller.fieldArea < fieldArea)
+                {
+                    return -1;
+                }
+                else
+                {
+                    return 0;
+                }
             }
         }
 
