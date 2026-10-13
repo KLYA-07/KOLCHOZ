@@ -22,10 +22,11 @@ public class DapperRepository: IRepository<Farmer>
 
         }
     }
-    public IEnumerable<Farmer> ReadAll() {
-        using (IDbConnection db = new SqlConnection(connectionString))
+    public IEnumerable<Farmer> ReadAll()
+    {
+        using (var connection = new SqlConnection(connectionString))
         {
-            return db.Query<Farmer>("SELECT * FROM Farmers").ToList();
+            return connection.Query<Farmer>("SELECT * FROM Farmers").ToList();
         }
     }
     public Farmer ReadByID(int id)

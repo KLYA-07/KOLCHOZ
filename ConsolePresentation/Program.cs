@@ -13,7 +13,7 @@ namespace ConsolePresentation
         /// <summary>
         /// Экземпляр бизнес-логики, через который выполняются все операции над фермерами.
         /// </summary>
-        private static Logic logic = new Logic(new EntityRepository());
+        private static Logic logic = new Logic(new DapperRepository(@"Server=DESKTOP-5MBC09Q\MOPSIEZH285;Database=KOLCHOZ;User Id=sa;Password=A17B18!!C19D20;TrustServerCertificate=True;"));
          
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace ConsolePresentation
                 Console.WriteLine(b);
                 b = "";
                 ShowFarmers(farmersCut);
-                Console.WriteLine("\nМеню:\n1 - Добавить фермера\n2 - Удалить фермера\n3 - Просмотреть фермера\n4 - Изменить фермера\n5 - Устроить куплепродажу земли\n6 - Сортировать по капиталу\n0 - Выход");
+                Console.WriteLine("\nМеню:\n1 - Добавить фермера\n2 - Удалить фермера\n3 - Просмотреть фермера\n4 - Изменить фермера\n5 - Устроить куплепродажу земли\n6 - Группировать по типу фермерства\n0 - Выход");
 
                     switch (Proverka(0, 2, true))
                 {
@@ -89,6 +89,7 @@ namespace ConsolePresentation
                                 case 0:
                                     rut = false;
                                     logic.ChangeFarmer(farmerch);
+                                    farmersCut = logic.FarmTypeGroup(farmersGroup);
                                     break;
                                 case 1:
                                     Console.WriteLine($"Введите имя. Старое - {farmerch.farmerName}");
