@@ -14,6 +14,7 @@ namespace ConsolePresentation
         /// Экземпляр бизнес-логики, через который выполняются все операции над фермерами.
         /// </summary>
         private static Logic logic = new Logic(new DapperRepository(@"Server=DESKTOP-5MBC09Q\MOPSIEZH285;Database=KOLCHOZ;User Id=sa;Password=A17B18!!C19D20;TrustServerCertificate=True;"));
+        private static List<int> farmersCut;
 
         /// <summary>
         /// Точка входа в программу. Инициализирует тестовых фермеров и запускает главное меню.
@@ -230,10 +231,25 @@ namespace ConsolePresentation
         {
             int o = 0;
             Console.WriteLine("Список фермеров:");
-            foreach (var i in logic.AllFarmers)
+
+            if (farmersCut != null)
             {
-                Console.WriteLine($"{o + 1}. {i}");
-                o++;
+                foreach (var i in logic.AllFarmers)
+                {
+                    if (farmersCut.Contains(o))
+                    {
+                        Console.WriteLine($"{o + 1}. {i}");
+                    }
+                    o++;
+                }
+            }
+            else
+            {
+                foreach (var i in logic.AllFarmers)
+                {
+                    Console.WriteLine($"{o + 1}. {i}");
+                    o++;
+                }
             }
         }
 
