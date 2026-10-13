@@ -8,6 +8,7 @@ namespace WinFormsPresentation
         private Logic logic;
 
         private List<int> farmersCut;
+        private string farmersGroup;
 
         /// <summary>
         /// Конструктор, который инициализирует основную форму: обновляет список фермеров
@@ -59,6 +60,10 @@ namespace WinFormsPresentation
 
             SetupFarmer(logic.AllFarmers.Count - 1);
 
+            if(farmersCut != null)
+            {
+                farmersCut = logic.FarmTypeGroup(farmersGroup);
+            }
             RefreshFarmersList();
         }
 
@@ -76,6 +81,12 @@ namespace WinFormsPresentation
             }
 
             SetupFarmer(farmerList.SelectedIndex);
+
+            if (farmersCut != null)
+            {
+                farmersCut = logic.FarmTypeGroup(farmersGroup);
+            }
+            RefreshFarmersList();
         }
 
         /// <summary>
@@ -127,6 +138,10 @@ namespace WinFormsPresentation
                     }
                 }
 
+                if (farmersCut != null)
+                {
+                    farmersCut = logic.FarmTypeGroup(farmersGroup);
+                }
                 RefreshFarmersList();
             }
         }
@@ -196,10 +211,12 @@ namespace WinFormsPresentation
             if(farmType.SelectedIndex > 0)
             {
                 farmersCut = logic.FarmTypeGroup(farmType.Text);
+                farmersGroup = farmType.Text;
             }
             else
             {
                 farmersCut = null;
+                farmersGroup = null;
             }
 
             RefreshFarmersList();
