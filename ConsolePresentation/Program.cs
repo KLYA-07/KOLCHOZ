@@ -13,8 +13,8 @@ namespace ConsolePresentation
         /// <summary>
         /// Экземпляр бизнес-логики, через который выполняются все операции над фермерами.
         /// </summary>
-        private static Logic logic = new Logic(new DapperRepository(@"Server=DESKTOP-5MBC09Q\MOPSIEZH285;Database=KOLCHOZ;User Id=sa;Password=A17B18!!C19D20;TrustServerCertificate=True;"));
-        private static List<int> farmersCut;
+        private static Logic logic = new Logic(new EntityRepository());
+         
 
         /// <summary>
         /// Точка входа в программу. Инициализирует тестовых фермеров и запускает главное меню.
@@ -22,37 +22,62 @@ namespace ConsolePresentation
         /// <param name="args">Аргументы командной строки (не используются).</param>
         public static void Main(string[] args)
         {
+
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             bool a = true;
+            string farmersGroup = "";
+            List<int> farmersCut = [];
+            string b = "";
             while (a)
             {
-
-                Console.WriteLine();
-                ShowFarmers();
+                
+                Console.WriteLine(b);
+                b = "";
+                ShowFarmers(farmersCut);
                 Console.WriteLine("\nМеню:\n1 - Добавить фермера\n2 - Удалить фермера\n3 - Просмотреть фермера\n4 - Изменить фермера\n5 - Устроить куплепродажу земли\n6 - Сортировать по капиталу\n0 - Выход");
 
                     switch (Proverka(0, 2, true))
                 {
                     case 1:
                         logic.AddFarmer(Call());
+                        farmersCut = logic.FarmTypeGroup(farmersGroup);
                         break;
                     case 2:
                         if (logic.AllFarmers.Count == 0) { Console.WriteLine("Список пуст"); break; }
                         Console.WriteLine("Кого по счету вы уберете?");
-                        logic.RemoveFarmer(Proverka(1, logic.AllFarmers.Count, false) - 1);
+                        if (farmersCut.Count > 0)
+                        {
+                            logic.RemoveFarmer(GroupProverka(farmersCut)-1);
+                        }
+                        else
+                        {
+                            logic.RemoveFarmer(Proverka(1, logic.AllFarmers.Count, false) - 1);
+                        }
+                        farmersCut = logic.FarmTypeGroup(farmersGroup);
                         break;
                     case 3:
                         if (logic.AllFarmers.Count == 0) { Console.WriteLine("Список пуст"); break; }
                         Console.WriteLine("Кого по счету вы просмотрите полностью?");
-                        Farmer farmer = logic.ReadFarmer(Proverka(1, logic.AllFarmers.Count, false) - 1);
+                        Farmer farmer = new Farmer();
+                        if (farmersCut.Count > 0)
+                        {
+                            farmer = logic.ReadFarmer(GroupProverka(farmersCut)-1);
+                            
+                        }
+                        else {
+                        farmer = logic.ReadFarmer(Proverka(1, logic.AllFarmers.Count, false) - 1);}
                         Console.WriteLine($"Имя: {farmer.farmerName}\nФамилия: {farmer.farmerSurname}\nНомер телефона: {farmer.phoneNumber}\nКапитал: {farmer.finacialCapital}\n" +
-                            $"Размер поля: {farmer.fieldArea}\nАдрес: {farmer.farmAddress}\nТип хозяйства: {farmer.farmType}\nДата регистрации: {farmer.registrationDate.ToLongDateString()}");
-                        Console.ReadKey();
+                                $"Размер поля: {farmer.fieldArea}\nАдрес: {farmer.farmAddress}\nТип хозяйства: {farmer.farmType}\nДата регистрации: {farmer.registrationDate.ToLongDateString()}");
+                        Console.ReadKey();  
                         break;
                     case 4:
                         if (logic.AllFarmers.Count == 0) { Console.WriteLine("Список пуст"); break; }
                         Console.WriteLine("Кого поменяете?");
-                        Farmer farmerch = logic.ReadFarmer(Proverka(1, logic.AllFarmers.Count, false) - 1);
+                        Farmer farmerch = new Farmer();
+                        if (farmersCut.Count > 0)
+                        { farmerch = logic.ReadFarmer(GroupProverka(farmersCut)-1); }
+                        else { farmerch = logic.ReadFarmer(Proverka(1, logic.AllFarmers.Count, false) - 1);} 
+                        
                         bool rut = true;
                         while (rut)
                         {
@@ -121,11 +146,22 @@ namespace ConsolePresentation
                             Console.WriteLine("Недостаточно фермеров");
                             break;
                         }
-                        Console.WriteLine("Введите номер покупателя");
-                        int payerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
-                        Console.WriteLine("Введите номер продавца");
-                        int sellerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
-
+                        int payerFarmerIndex = 0;
+                        int sellerFarmerIndex = 0;
+                        if (farmersCut.Count > 0)
+                        {
+                            Console.WriteLine("Введите номер покупателя");
+                            payerFarmerIndex = GroupProverka(farmersCut);
+                            Console.WriteLine("Введите номер продавца");
+                            sellerFarmerIndex = GroupProverka(farmersCut);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Введите номер покупателя");
+                            payerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
+                            Console.WriteLine("Введите номер продавца");
+                            sellerFarmerIndex = Proverka(1, logic.AllFarmers.Count, false);
+                        }
                         if (payerFarmerIndex == sellerFarmerIndex)
                         {
 
@@ -169,8 +205,34 @@ namespace ConsolePresentation
                         break;
                     case 6:
                         Console.Clear();
-                        //logic.FarmTypeGroup();
-
+                        Console.WriteLine("Выберите тип хозяйства:\n1) Все\n2) Скотоводство\n3) Растениеводство\n4) Пчеловодство\n5) Смешанное");
+                        switch (Proverka(1, 5, false))
+                        {
+                            case 1:
+                                farmersCut = logic.FarmTypeGroup("");
+                                farmersGroup = "";
+                                break;
+                            case 2:
+                                farmersCut = logic.FarmTypeGroup("Скотоводство");
+                                farmersGroup = "Скотоводство";
+                                break;
+                            case 3:
+                                farmersCut = logic.FarmTypeGroup("Растениеводство");
+                                farmersGroup = "Растениеводство";
+                                break;
+                            case 4:
+                                farmersCut = logic.FarmTypeGroup("Пчеловодство");
+                                farmersGroup = "Пчеловодство";
+                                break;
+                            case 5:
+                                farmersCut = logic.FarmTypeGroup("Смешанный");
+                                farmersGroup = "Смешанный";
+                                break;
+                        }
+                        if (farmersCut.Count == 0)
+                        {
+                            b = "Простите, но фермеров с таким типом фермерства не найдено.";
+                        }
                         break;
                     case 0:
                         a = false;
@@ -214,7 +276,7 @@ namespace ConsolePresentation
                     farmer.farmType = "Пчеловодство";
                     break;
                 case 4:
-                    farmer.farmType = "Смешанное";
+                    farmer.farmType = "Смешанный";
                     break;
             }
             
@@ -227,12 +289,12 @@ namespace ConsolePresentation
         /// <summary>
         /// Выводит в консоль нумерованный список всех фермеров.
         /// </summary>
-        public static void ShowFarmers()
+        public static void ShowFarmers(List<int> farmersCut)
         {
-            int o = 0;
+            int o = 0; 
             Console.WriteLine("Список фермеров:");
 
-            if (farmersCut != null)
+            if (farmersCut.Count > 0)
             {
                 foreach (var i in logic.AllFarmers)
                 {
@@ -372,11 +434,22 @@ namespace ConsolePresentation
             }
         }
 
+        public static int GroupProverka(List<int> list)
+        {
+            List<int> list1 = list.Select(i => i + 1).ToList();
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out int value) && list1.Contains(value))
+                    return value;
+                Console.WriteLine($"Попробуйте еще раз. Это должно быть число из этого списка: {string.Join(", ", list1)}");
+            }
+        }
+
         /// <summary>
         /// Выводит в консоль подробную информацию о фермере по его номеру (e).
         /// Если номер вне диапазона 1..logic.AllFarmers.Count — выводит сообщение об отсутствии.
         /// </summary>
 
-        
+
     }
 }
