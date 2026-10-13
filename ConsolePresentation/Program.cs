@@ -1,5 +1,6 @@
 ﻿using Model;
 using BusinessLogic;
+using DataAccessLayer;
 
 namespace ConsolePresentation
 {
@@ -12,7 +13,7 @@ namespace ConsolePresentation
         /// <summary>
         /// Экземпляр бизнес-логики, через который выполняются все операции над фермерами.
         /// </summary>
-        private static Logic logic = new Logic();
+        private static Logic logic = new Logic(new DapperRepository(@"Server=DESKTOP-5MBC09Q\MOPSIEZH285;Database=KOLCHOZ;User Id=sa;Password=A17B18!!C19D20;TrustServerCertificate=True;"));
 
         /// <summary>
         /// Точка входа в программу. Инициализирует тестовых фермеров и запускает главное меню.
@@ -22,8 +23,6 @@ namespace ConsolePresentation
         {
             Console.OutputEncoding = System.Text.Encoding.UTF8;
             bool a = true;
-            logic.AddFarmer(new Farmer());
-            logic.AddFarmer(new Farmer());
             while (a)
             {
 
@@ -63,6 +62,7 @@ namespace ConsolePresentation
                             {
                                 case 0:
                                     rut = false;
+                                    logic.ChangeFarmer(farmerch);
                                     break;
                                 case 1:
                                     Console.WriteLine($"Введите имя. Старое - {farmerch.farmerName}");
@@ -90,8 +90,22 @@ namespace ConsolePresentation
                                     farmerch.farmAddress = SProverka();
                                     break;
                                 case 7:
-                                    Console.WriteLine($"Введите тип хозяйства. Старый - {farmerch.farmType}");
-                                    farmerch.farmType = SProverka();
+                                    Console.WriteLine("Выберите тип хозяйства. Старый - {farmerch.farmType}\n1) Скотоводство\n2) Растениеводство\n3) Пчеловодство\n4) Смешанное");
+                                    switch (Proverka(1, 4, false))
+                                    {
+                                        case 1:
+                                            farmerch.farmType = "Скотоводство";
+                                            break;
+                                        case 2:
+                                            farmerch.farmType = "Растениеводство";
+                                            break;
+                                        case 3:
+                                            farmerch.farmType = "Пчеловодство";
+                                            break;
+                                        case 4:
+                                            farmerch.farmType = "Смешанное";
+                                            break;
+                                    }
                                     break;
                                 case 8:
                                     Console.WriteLine($"Старая дата - {farmerch.registrationDate}");
@@ -99,7 +113,6 @@ namespace ConsolePresentation
                                     break;
                             }
                         }
-
                         break;
                     case 5:
                         if (logic.AllFarmers.Count < 2)
@@ -155,7 +168,7 @@ namespace ConsolePresentation
                         break;
                     case 6:
                         Console.Clear();
-                        logic.CapitalSort();
+                        //logic.FarmTypeGroup();
 
                         break;
                     case 0:
@@ -187,8 +200,23 @@ namespace ConsolePresentation
             farmer.fieldArea = Proverka(0, 2, true);
             Console.WriteLine("Введите адрес");
             farmer.farmAddress= SProverka();
-            Console.WriteLine("Введите тип хозяйства");
-            farmer.farmType = SProverka();
+            Console.WriteLine("Выберите тип хозяйства:\n1) Скотоводство\n2) Растениеводство\n3) Пчеловодство\n4) Смешанное");
+            switch (Proverka(1,4,false))
+            {
+                case 1:
+                    farmer.farmType = "Скотоводство";
+                    break;
+                case 2:
+                    farmer.farmType = "Растениеводство";
+                    break;
+                case 3:
+                    farmer.farmType = "Пчеловодство";
+                    break;
+                case 4:
+                    farmer.farmType = "Смешанное";
+                    break;
+            }
+            
             farmer.registrationDate = DateProverka();
                 
             
