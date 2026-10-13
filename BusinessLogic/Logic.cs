@@ -112,7 +112,9 @@ namespace BusinessLogic
         /// </summary>
         public List<int> FarmTypeGroup(string farmType)
         {
-            return allFarmers.ReadAll().Where(f => f.farmType == farmType).Select(f => allFarmers.ReadAll().ToList().IndexOf(f)).ToList();
+            List<Farmer> farmers = allFarmers.ReadAll().ToList();
+
+            return farmers.Where(f => f.farmType == farmType).Select(f => farmers.IndexOf(f)).ToList();
         }
     }
 }
