@@ -47,9 +47,9 @@ public class DapperRepository : IRepository<Farmer>
     /// <returns>Коллекция объектов Farmer</returns>
     public IEnumerable<Farmer> ReadAll()
     {
-        using (var connection = new SqlConnection(connectionString))
+        using (IDbConnection db = new SqlConnection(connectionString))
         {
-            return connection.Query<Farmer>("SELECT * FROM Farmers").ToList();
+            return db.Query<Farmer>("SELECT * FROM Farmers").ToList();
         }
     }
 
