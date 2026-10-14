@@ -113,7 +113,7 @@ namespace WinFormsPresentation
             {
                 e.Cancel = true;
             }
-            editingfarmer.farmerName = newValue;
+            editingfarmer.farmerSurname = newValue;
         }
 
         /// <summary>

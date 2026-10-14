@@ -58,7 +58,7 @@ namespace WinFormsPresentation
             Farmer farmer = new Farmer();
             logic.AddFarmer(farmer);
 
-            SetupFarmer(logic.AllFarmers.Count - 1);
+            SetupFarmer(logic.AllFarmers.Count - 1, true);
 
             if(farmersCut != null)
             {
@@ -80,7 +80,7 @@ namespace WinFormsPresentation
                 return;
             }
 
-            SetupFarmer(farmerList.SelectedIndex);
+            SetupFarmer(farmerList.SelectedIndex, false);
 
             if (farmersCut != null)
             {
@@ -93,9 +93,26 @@ namespace WinFormsPresentation
         /// Метод, который инициализирует и открывает форму настройки фермера и после её закрытия изменяет фермера в логике
         /// </summary>
         /// <param name="index">Индекс выбранного фермера (сущности)</param>
-        private void SetupFarmer(int index)
+        private void SetupFarmer(int index, bool isNew)
         {
-            Farmer neededfarmer = logic.ReadFarmer(index);
+            Farmer neededfarmer;
+
+            if (isNew)
+            {
+                neededfarmer = logic.ReadFarmer(index);
+            }
+            else
+            {
+                if(farmersCut != null)
+                {
+                    neededfarmer = logic.ReadFarmer(farmersCut[index]);
+                }
+                else
+                {
+                    neededfarmer = logic.ReadFarmer(index);
+                }
+            }
+
             Farmer sendFarmer = new Farmer()
             {
                 ID = neededfarmer.ID,
@@ -111,8 +128,6 @@ namespace WinFormsPresentation
 
             SetupDialog setupDialog = new SetupDialog(sendFarmer);
             setupDialog.ShowDialog(this);
-
-            RefreshFarmersList();
 
             logic.ChangeFarmer(sendFarmer);
 
@@ -132,9 +147,16 @@ namespace WinFormsPresentation
 
                 if (result == DialogResult.Yes)
                 {
-                    for (int i = 0; i < farmerList.SelectedItems.Count; i++)
+                    for (int i = farmerList.SelectedItems.Count - 1; i >= 0; i--)
                     {
-                        logic.RemoveFarmer(farmerList.Items.IndexOf(farmerList.SelectedItems[i]));
+                        if(farmersCut != null)
+                        {
+                            logic.RemoveFarmer(farmersCut[farmerList.Items.IndexOf(farmerList.SelectedItems[i])]);
+                        }
+                        else
+                        {
+                            logic.RemoveFarmer(farmerList.Items.IndexOf(farmerList.SelectedItems[i]));
+                        }
                     }
                 }
 
@@ -159,7 +181,16 @@ namespace WinFormsPresentation
                 return;
             }
 
-            Farmer farmer = logic.ReadFarmer(farmerList.SelectedIndex);
+            Farmer farmer;
+
+            if(farmersCut != null)
+            {
+                farmer = logic.ReadFarmer(farmersCut[farmerList.SelectedIndex]);
+            }
+            else
+            {
+                farmer = logic.ReadFarmer(farmerList.SelectedIndex);
+            }
 
             ReadDialog readDialog = new ReadDialog(farmer);
             readDialog.ShowDialog(this);
@@ -180,6 +211,12 @@ namespace WinFormsPresentation
 
             int payerIndex = farmerList.SelectedIndices[0];
             int sellerIndex = farmerList.SelectedIndices[1];
+
+            if (farmersCut != null)
+            {
+                payerIndex = farmersCut[farmerList.SelectedIndices[0]];
+                sellerIndex = farmersCut[farmerList.SelectedIndices[1]];
+            }
 
             Farmer payer = logic.ReadFarmer(payerIndex);
             Farmer seller = logic.ReadFarmer(sellerIndex);
