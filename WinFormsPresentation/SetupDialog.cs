@@ -42,6 +42,11 @@ namespace WinFormsPresentation
             registrationDate.Value = farmer.registrationDate;
         }
 
+        /// <summary>
+        /// Метод, проверяющий текст на правильность ввода
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private bool ValidateText(string text)
         {
             if (string.IsNullOrEmpty(text.TrimStart().TrimEnd()))
@@ -55,6 +60,11 @@ namespace WinFormsPresentation
             }
         }
 
+        /// <summary>
+        /// Метод, проверяющий текст на возможность перевода в число
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private int ValidateValue(string text)
         {
             if (ValidateText(text))
@@ -90,6 +100,11 @@ namespace WinFormsPresentation
             editingfarmer.farmerName = newValue;
         }
 
+        /// <summary>
+        /// Метод события подтверждения ввода фамилии фермера в текстовое поле формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void farmerSurname_Validating(object sender, CancelEventArgs e)
         {
             string newValue = farmerSurname.Text.TrimStart().TrimEnd();
@@ -101,6 +116,11 @@ namespace WinFormsPresentation
             editingfarmer.farmerName = newValue;
         }
 
+        /// <summary>
+        /// Метод события подтверждения ввода номера телефона фермера в текстовое поле формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void phoneNumber_Validating(object sender, CancelEventArgs e)
         {
             string newValue = phoneNumber.Text.TrimStart().TrimEnd();
@@ -139,7 +159,7 @@ namespace WinFormsPresentation
         }
 
         /// <summary>
-        /// Метод события подтверждения ввода текстового поля финансового капитала фермера, который проверяет введённое значение и при успехе обновляет капитал фермера
+        /// Метод события подтверждения ввода текстового поля финансового капитала фермера
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -158,7 +178,7 @@ namespace WinFormsPresentation
         }
 
         /// <summary>
-        /// Метод события подтверждения ввода текстового поля размера поля фермера, который проверяет введённое значение и при успехе обновляет размер поля фермера
+        /// Метод события подтверждения ввода текстового поля размера поля фермера
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -228,6 +248,11 @@ namespace WinFormsPresentation
 
         }
 
+        /// <summary>
+        /// Метод события подтверждения ввода адреса фермы в текстовое поле формы
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void farmerAddress_Validating(object sender, CancelEventArgs e)
         {
             string newValue = farmAddress.Text.TrimStart().TrimEnd();
@@ -242,11 +267,21 @@ namespace WinFormsPresentation
             }
         }
 
+        /// <summary>
+        /// Метод события подтверждения выбора типа фермерства
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void farmType_Validating(object sender, CancelEventArgs e)
         {
             editingfarmer.farmType = farmType.Text;
         }
 
+        /// <summary>
+        /// Метод события подтверждения ввода даты регистрации фермера
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void registrationDate_Validating(object sender, CancelEventArgs e)
         {
             editingfarmer.registrationDate = registrationDate.Value;

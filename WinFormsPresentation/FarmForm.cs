@@ -206,6 +206,11 @@ namespace WinFormsPresentation
             while (exchangeDialog.DialogResult == DialogResult.OK);
         }
 
+        /// <summary>
+        /// Метод события нажатия на кнопку отображения группы фермеров по типу фермерства
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void groupByType_Click(object sender, EventArgs e)
         {
             if(farmType.SelectedIndex > 0)

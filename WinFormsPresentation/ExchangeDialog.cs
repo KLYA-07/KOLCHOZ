@@ -135,6 +135,11 @@ namespace WinFormsPresentation
             }
         }
 
+        /// <summary>
+        /// Метод события подтверждения ввода значения размера поля
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void fieldArea_Validating(object sender, CancelEventArgs e)
         {
             string text = fieldArea.Text.TrimStart().TrimEnd();
