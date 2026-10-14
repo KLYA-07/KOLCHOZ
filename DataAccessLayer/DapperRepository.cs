@@ -15,16 +15,13 @@ using System.Data;
 public class DapperRepository : IRepository<Farmer>
 {
     // Строка подключения к базе данных
-    string connectionString = null;
+    string connectionString = @"Server=DESKTOP-5MBC09Q\MOPSIEZH285;Database=KOLCHOZ;User Id=sa;Password=A17B18!!C19D20;TrustServerCertificate=True;";
 
     /// <summary>
     /// Конструктор репозитория.
     /// </summary>
     /// <param name="conn">Строка подключения к базе данных SQL Server</param>
-    public DapperRepository(string conn)
-    {
-        connectionString = conn;
-    }
+
 
     /// <summary>
     /// Создаёт нового фермера в таблице Farmers.

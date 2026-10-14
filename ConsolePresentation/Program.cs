@@ -13,7 +13,7 @@ namespace ConsolePresentation
         /// <summary>
         /// Экземпляр бизнес-логики, через который выполняются все операции над фермерами.
         /// </summary>
-        private static Logic logic = new Logic(new DapperRepository(@"Server=DESKTOP-5MBC09Q\MOPSIEZH285;Database=KOLCHOZ;User Id=sa;Password=A17B18!!C19D20;TrustServerCertificate=True;"));
+        private static Logic logic = new Logic(new DapperRepository());
 
         /// <summary>
         /// Точка входа в программу. Инициализирует тестовых фермеров и запускает главное меню.
