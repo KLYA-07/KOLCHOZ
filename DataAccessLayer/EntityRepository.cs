@@ -3,7 +3,7 @@ using System.Security.Cryptography;
 
 namespace DataAccessLayer
 {
-    public class EntityRepository : IRepository<Farmer>
+    public class EntityRepository<T> : IRepository<Farmer>
     {
         private EntityDBContext dbContext;
 

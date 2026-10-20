@@ -1,13 +1,15 @@
-using Model;
 using BusinessLogic;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
+using Model;
+using Ninject;
 
 namespace WinFormsPresentation
 {
     internal static class Program
     {
-        private static Logic logic;
+        private static IKernel ninjectKernel = new StandardKernel(new SimpleConfigModule());
+        private static Logic logic = ninjectKernel.Get<Logic>();
 
         public static float FieldUnitCost
         {
@@ -23,7 +25,6 @@ namespace WinFormsPresentation
         [STAThread]
         static void Main()
         {
-            logic = new Logic(new EntityRepository());
 
             ApplicationConfiguration.Initialize();
             Application.Run(new FarmForm(logic));

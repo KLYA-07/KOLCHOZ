@@ -12,7 +12,7 @@ using System.Data;
 /// Обеспечивает CRUD-операции (создание, чтение, обновление, удаление)
 /// для таблицы Farmers в базе данных SQL Server с помощью Dapper.
 /// </summary>
-public class DapperRepository : IRepository<Farmer>
+public class DapperRepository<T> : IRepository<Farmer>
 {
     // Строка подключения к базе данных
     string connectionString = @"Server=DESKTOP-5MBC09Q\MOPSIEZH285;Database=KOLCHOZ;User Id=sa;Password=A17B18!!C19D20;TrustServerCertificate=True;";
