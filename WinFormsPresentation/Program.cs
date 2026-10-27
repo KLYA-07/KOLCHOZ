@@ -11,14 +11,6 @@ namespace WinFormsPresentation
         private static IKernel ninjectKernel = new StandardKernel(new SimpleConfigModule());
         private static Logic logic = ninjectKernel.Get<Logic>();
 
-        public static float FieldUnitCost
-        {
-            get
-            {
-                return Logic.fieldUnitCost;
-            }
-        }
-
         /// <summary>
         /// Метод, инициализирующий логику и запускающий основную форму
         /// </summary>
