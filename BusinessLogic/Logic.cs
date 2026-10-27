@@ -1,24 +1,26 @@
 ﻿using DataAccessLayer;
 using Model;
-//using DataAccessLayer;
 
 namespace BusinessLogic
 {
     public class Logic
     {
-        public const float fieldUnitCost = 15525;
         private IRepository<Farmer> allFarmers;
+        private BusinessService service;
+        private UI_Adapter adapter;
 
         public Logic(IRepository<Farmer> repository)
         {
             allFarmers = repository;
+            service = new BusinessService();
+            adapter = new UI_Adapter();
         }
 
         public List<string> AllFarmers
         {
             get
             {
-                return allFarmers.ReadAll().ToList().Select(f => $"{f.farmerName} {f.farmerSurname} ({f.finacialCapital}₽)").ToList();
+                return adapter.GetFarmersStrings(allFarmers.ReadAll().ToList());
             }
         }
 
@@ -26,7 +28,7 @@ namespace BusinessLogic
         {
             get
             {
-                return allFarmers.ReadAll().ToList().Select(f => f.ID).ToList();
+                return adapter.GetFarmersIDs(allFarmers.ReadAll().ToList());
             }
         }
 
@@ -45,7 +47,8 @@ namespace BusinessLogic
         /// <param name="farmerIndex">Индекс фермера в списке</param>
         public void RemoveFarmer(int farmerIndex)
         {
-            allFarmers.Delete(allFarmers.ReadByID(AllFarmersIDs[farmerIndex]));
+            Farmer farmer = allFarmers.ReadAll().ToList()[farmerIndex];
+            allFarmers.Delete(farmer);
         }
 
         /// <summary>
@@ -79,32 +82,15 @@ namespace BusinessLogic
             Farmer payer = allFarmers.ReadByID(AllFarmersIDs[payerFarmerIndex]);
             Farmer seller = allFarmers.ReadByID(AllFarmersIDs[sellerFarmerIndex]);
 
-            decimal sum = (decimal)(fieldUnitCost * fieldArea);
+            int result = service.DoFieldExchange(payer, seller, fieldArea);
 
-            if (payer.finacialCapital >= sum && seller.fieldArea >= fieldArea)
+            if(result == 1)
             {
-                payer.finacialCapital -= sum;
-                seller.finacialCapital += sum;
-
-                payer.fieldArea += fieldArea;
-                seller.fieldArea -= fieldArea;
-
                 allFarmers.Update(payer);
                 allFarmers.Update(seller);
+            }
 
-                return 1;
-            }
-            else
-            {
-                if(seller.fieldArea < fieldArea)
-                {
-                    return -1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
+            return result;
         }
 
         /// <summary>
@@ -114,7 +100,7 @@ namespace BusinessLogic
         {
             List<Farmer> farmers = allFarmers.ReadAll().ToList();
 
-            return farmers.Where(f => f.farmType == farmType).Select(f => farmers.IndexOf(f)).ToList();
+            return service.GetFarmTypeGroup(farmers, farmType);
         }
     }
 }

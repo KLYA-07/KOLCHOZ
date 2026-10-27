@@ -243,11 +243,6 @@ namespace WinFormsPresentation
             }
         }
 
-        private void SetupDialog_Load(object sender, EventArgs e)
-        {
-
-        }
-
         /// <summary>
         /// Метод события подтверждения ввода адреса фермы в текстовое поле формы
         /// </summary>

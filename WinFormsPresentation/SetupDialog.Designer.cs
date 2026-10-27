@@ -238,7 +238,6 @@
             Name = "SetupDialog";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Настройка фермера";
-            Load += SetupDialog_Load;
             MouseClick += LeaveEditingOnMouseClick;
             ResumeLayout(false);
             PerformLayout();
