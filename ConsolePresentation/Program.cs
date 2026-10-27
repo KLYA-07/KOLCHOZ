@@ -72,7 +72,7 @@ namespace ConsolePresentation
 
                     // Группировка фермеров по типу хозяйства
                     case 6:
-                        FarmTypeGroup(b, farmersCut, farmersGroup);
+                        (farmersGroup, farmersCut, b) = FarmTypeGroup(farmersGroup, farmersCut, b);
                         break;
 
                     // Выход из программы
@@ -353,7 +353,7 @@ namespace ConsolePresentation
         /// Фильтрует список фермеров по типу хозяйства.
         /// При пустой выборке формирует сообщение (в текущей реализации — локально, без передачи наружу).
         /// </summary>
-        public static void FarmTypeGroup(string b, List<int> farmersCut, string farmersGroup)
+        public static (string farmersGroup, List<int> farmersCut, string b) FarmTypeGroup(string farmersGroup, List<int> farmersCut, string b)
         {
             Console.Clear();
             Console.WriteLine("Выберите тип хозяйства:\n1) Все\n2) Скотоводство\n3) Растениеводство\n4) Пчеловодство\n5) Смешанное");
@@ -384,6 +384,7 @@ namespace ConsolePresentation
             {
                 b = "Простите, но фермеров с таким типом фермерства не найдено.";
             }
+            return ( farmersGroup,  farmersCut,  b);
         }
 
         /// <summary>
