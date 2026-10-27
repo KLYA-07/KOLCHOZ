@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using BusinessLogic;
 using Model;
 
 namespace WinFormsPresentation
@@ -26,7 +27,7 @@ namespace WinFormsPresentation
 
             FlipExchangeField();
 
-            fieldCost.Text = fieldCost.Text.Split(":").First() + ": " + Program.FieldUnitCost.ToString();
+            fieldCost.Text = fieldCost.Text.Split(":").First() + ": " + BusinessService.fieldUnitCost.ToString();
         }
 
         /// <summary>
@@ -67,7 +68,7 @@ namespace WinFormsPresentation
         /// </summary>
         private void UpdateSum()
         {
-            exchangeSum.Text = exchangeSum.Text.Split(':').First() + ": " + (Program.FieldUnitCost * exchangeArea).ToString();
+            exchangeSum.Text = exchangeSum.Text.Split(':').First() + ": " + (BusinessService.fieldUnitCost * exchangeArea).ToString();
         }
 
         /// <summary>
