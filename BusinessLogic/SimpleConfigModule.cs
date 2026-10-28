@@ -8,7 +8,7 @@ namespace BusinessLogic
     {
         public override void Load()
         {
-            Bind<IRepository<Farmer>>().To<EntityRepository<Farmer>>().InSingletonScope();
+            Bind<IRepository<Farmer>>().To<DapperRepository<Farmer>>().InSingletonScope();
         }
     }
 }

@@ -380,7 +380,7 @@ namespace ConsolePresentation
                     farmersGroup = "Смешанный";
                     break;
             }
-            if (farmersCut.Count == 0)
+            if (farmersCut.Count == 0 && farmersGroup != "")
             {
                 b = "Простите, но фермеров с таким типом фермерства не найдено.";
             }

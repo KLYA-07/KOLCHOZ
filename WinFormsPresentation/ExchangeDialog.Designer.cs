@@ -45,18 +45,20 @@
             // 
             title.AutoSize = true;
             title.Font = new Font("Segoe UI", 15F);
-            title.Location = new Point(282, 9);
+            title.Location = new Point(226, 7);
+            title.Margin = new Padding(2, 0, 2, 0);
             title.Name = "title";
-            title.Size = new Size(342, 41);
+            title.Size = new Size(289, 35);
             title.TabIndex = 0;
             title.Text = "Купля-продажа урожая";
             // 
             // payerName
             // 
             payerName.BorderStyle = BorderStyle.FixedSingle;
-            payerName.Location = new Point(12, 94);
+            payerName.Location = new Point(10, 75);
+            payerName.Margin = new Padding(2, 0, 2, 0);
             payerName.Name = "payerName";
-            payerName.Size = new Size(387, 56);
+            payerName.Size = new Size(310, 45);
             payerName.TabIndex = 1;
             payerName.Text = "Покупатель: ";
             payerName.TextAlign = ContentAlignment.MiddleCenter;
@@ -64,9 +66,10 @@
             // sellerName
             // 
             sellerName.BorderStyle = BorderStyle.FixedSingle;
-            sellerName.Location = new Point(498, 95);
+            sellerName.Location = new Point(398, 76);
+            sellerName.Margin = new Padding(2, 0, 2, 0);
             sellerName.Name = "sellerName";
-            sellerName.Size = new Size(387, 56);
+            sellerName.Size = new Size(310, 45);
             sellerName.TabIndex = 2;
             sellerName.Text = "Продавец: ";
             sellerName.TextAlign = ContentAlignment.MiddleCenter;
@@ -74,9 +77,10 @@
             // switchButton
             // 
             switchButton.Font = new Font("Segoe UI", 10F);
-            switchButton.Location = new Point(405, 95);
+            switchButton.Location = new Point(324, 76);
+            switchButton.Margin = new Padding(2, 2, 2, 2);
             switchButton.Name = "switchButton";
-            switchButton.Size = new Size(87, 56);
+            switchButton.Size = new Size(70, 45);
             switchButton.TabIndex = 3;
             switchButton.Text = "<->";
             switchButton.UseVisualStyleBackColor = true;
@@ -85,28 +89,31 @@
             // financialCapital
             // 
             financialCapital.BorderStyle = BorderStyle.FixedSingle;
-            financialCapital.Location = new Point(13, 176);
+            financialCapital.Location = new Point(10, 141);
+            financialCapital.Margin = new Padding(2, 0, 2, 0);
             financialCapital.Name = "financialCapital";
-            financialCapital.Size = new Size(270, 47);
+            financialCapital.Size = new Size(216, 38);
             financialCapital.TabIndex = 4;
-            financialCapital.Text = "Имеющийся капитал: ";
+            financialCapital.Text = "Имеющийся капитал:";
             financialCapital.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // exchangeSum
             // 
             exchangeSum.BorderStyle = BorderStyle.FixedSingle;
-            exchangeSum.Location = new Point(289, 221);
+            exchangeSum.Location = new Point(231, 177);
+            exchangeSum.Margin = new Padding(2, 0, 2, 0);
             exchangeSum.Name = "exchangeSum";
-            exchangeSum.Size = new Size(335, 56);
+            exchangeSum.Size = new Size(268, 45);
             exchangeSum.TabIndex = 8;
             exchangeSum.Text = "Итоговая сумма: ";
             exchangeSum.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // exchangeButton
             // 
-            exchangeButton.Location = new Point(367, 297);
+            exchangeButton.Location = new Point(294, 238);
+            exchangeButton.Margin = new Padding(2, 2, 2, 2);
             exchangeButton.Name = "exchangeButton";
-            exchangeButton.Size = new Size(202, 34);
+            exchangeButton.Size = new Size(162, 27);
             exchangeButton.TabIndex = 9;
             exchangeButton.Text = "Совершить сделку";
             exchangeButton.UseVisualStyleBackColor = true;
@@ -115,9 +122,10 @@
             // label2
             // 
             label2.BorderStyle = BorderStyle.FixedSingle;
-            label2.Location = new Point(12, 223);
+            label2.Location = new Point(10, 178);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(271, 108);
+            label2.Size = new Size(217, 87);
             label2.TabIndex = 11;
             label2.Text = "Площадь земли для покупки:";
             label2.TextAlign = ContentAlignment.TopCenter;
@@ -125,36 +133,39 @@
             // totalFieldArea
             // 
             totalFieldArea.BorderStyle = BorderStyle.FixedSingle;
-            totalFieldArea.Location = new Point(633, 176);
+            totalFieldArea.Location = new Point(506, 141);
+            totalFieldArea.Margin = new Padding(2, 0, 2, 0);
             totalFieldArea.Name = "totalFieldArea";
-            totalFieldArea.Size = new Size(252, 91);
+            totalFieldArea.Size = new Size(202, 73);
             totalFieldArea.TabIndex = 12;
             totalFieldArea.Text = "Площадь имеющейся земли:";
             totalFieldArea.TextAlign = ContentAlignment.TopCenter;
             // 
             // fieldArea
             // 
-            fieldArea.Location = new Point(64, 281);
+            fieldArea.Location = new Point(51, 225);
+            fieldArea.Margin = new Padding(2, 2, 2, 2);
             fieldArea.Name = "fieldArea";
-            fieldArea.Size = new Size(168, 31);
+            fieldArea.Size = new Size(135, 27);
             fieldArea.TabIndex = 13;
             fieldArea.Validating += fieldArea_Validating;
             // 
             // fieldCost
             // 
             fieldCost.BorderStyle = BorderStyle.FixedSingle;
-            fieldCost.Location = new Point(633, 267);
+            fieldCost.Location = new Point(506, 214);
+            fieldCost.Margin = new Padding(2, 0, 2, 0);
             fieldCost.Name = "fieldCost";
-            fieldCost.Size = new Size(252, 64);
+            fieldCost.Size = new Size(202, 52);
             fieldCost.TabIndex = 14;
             fieldCost.Text = "Цена за Га:";
             fieldCost.TextAlign = ContentAlignment.TopCenter;
             // 
             // ExchangeDialog
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(897, 406);
+            ClientSize = new Size(718, 325);
             Controls.Add(fieldCost);
             Controls.Add(fieldArea);
             Controls.Add(exchangeButton);
@@ -167,6 +178,7 @@
             Controls.Add(totalFieldArea);
             Controls.Add(label2);
             FormBorderStyle = FormBorderStyle.FixedDialog;
+            Margin = new Padding(2, 2, 2, 2);
             MaximizeBox = false;
             Name = "ExchangeDialog";
             StartPosition = FormStartPosition.CenterParent;
