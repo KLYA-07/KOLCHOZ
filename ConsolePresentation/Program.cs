@@ -19,7 +19,7 @@ namespace ConsolePresentation
         /// <summary>
         /// Экземпляр бизнес-логики, через который выполняются все операции над фермерами.
         /// </summary>
-        private static Logic logic = ninjectKernel.Get<Logic>();
+        private static ILogic logic = ninjectKernel.Get<ILogic>();
 
         /// <summary>
         /// Точка входа в программу. Инициализирует тестовых фермеров и запускает главное меню.
@@ -47,7 +47,7 @@ namespace ConsolePresentation
                 {
                     // Добавление нового фермера
                     case 1:
-                        Add(logic, farmersCut, farmersGroup);
+                        Add(farmersCut, farmersGroup);
                         break;
 
                     // Удаление фермера
@@ -160,7 +160,7 @@ namespace ConsolePresentation
         /// <summary>
         /// Добавляет нового фермера и пересчитывает фильтр по типу хозяйства.
         /// </summary>
-        public static void Add(Logic logic, List<int> farmersCut, string farmersGroup)
+        public static void Add(List<int> farmersCut, string farmersGroup)
         {
             logic.AddFarmer(Call());
             farmersCut = logic.FarmTypeGroup(farmersGroup);

@@ -5,7 +5,7 @@ namespace WinFormsPresentation
 {
     public partial class FarmForm : Form
     {
-        private Logic logic;
+        private ILogic logic;
 
         private List<int> farmersCut;
         private string farmersGroup;
@@ -14,7 +14,7 @@ namespace WinFormsPresentation
         /// Конструктор, который инициализирует основную форму: обновляет список фермеров
         /// </summary>
         /// <param name="logic"></param>
-        public FarmForm(Logic logic)
+        public FarmForm(ILogic logic)
         {
             InitializeComponent();
 

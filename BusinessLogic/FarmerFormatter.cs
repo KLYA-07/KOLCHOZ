@@ -2,7 +2,7 @@
 
 namespace BusinessLogic
 {
-    public class UI_Adapter
+    public class FarmerFormatter : IFarmerFormatter
     {
         public List<string> GetFarmersStrings(List<Farmer> farmers)
         {

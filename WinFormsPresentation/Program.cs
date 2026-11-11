@@ -9,7 +9,7 @@ namespace WinFormsPresentation
     internal static class Program
     {
         private static IKernel ninjectKernel = new StandardKernel(new SimpleConfigModule());
-        private static Logic logic = ninjectKernel.Get<Logic>();
+        private static ILogic logic = ninjectKernel.Get<ILogic>();
 
         /// <summary>
         /// Метод, инициализирующий логику и запускающий основную форму

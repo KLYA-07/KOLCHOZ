@@ -6,28 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Model;
 using System.Data;
 
-/// <summary>
-/// Репозиторий для работы с сущностью Farmer.
-/// Реализует интерфейс IRepository<Farmer>.
-/// Обеспечивает CRUD-операции (создание, чтение, обновление, удаление)
-/// для таблицы Farmers в базе данных SQL Server с помощью Dapper.
-/// </summary>
+
 public class DapperRepository<T> : IRepository<Farmer>
 {
-    // Строка подключения к базе данных
+
     string connectionString = @"Server=DESKTOP-5MBC09Q\MOPSIEZH285;Database=KOLCHOZ;User Id=sa;Password=A17B18!!C19D20;TrustServerCertificate=True;";
 
-    /// <summary>
-    /// Конструктор репозитория.
-    /// </summary>
-    /// <param name="conn">Строка подключения к базе данных SQL Server</param>
 
-
-    /// <summary>
-    /// Создаёт нового фермера в таблице Farmers.
-    /// Использует параметризованный SQL-запрос для защиты от SQL-инъекций.
-    /// </summary>
-    /// <param name="obj">Объект Farmer для добавления</param>
     public void Create(Farmer obj)
     {
         using (IDbConnection db = new SqlConnection(connectionString))
@@ -38,10 +23,7 @@ public class DapperRepository<T> : IRepository<Farmer>
         }
     }
 
-    /// <summary>
-    /// Возвращает список всех фермеров из таблицы Farmers.
-    /// </summary>
-    /// <returns>Коллекция объектов Farmer</returns>
+
     public IEnumerable<Farmer> ReadAll()
     {
         using (IDbConnection db = new SqlConnection(connectionString))
@@ -50,11 +32,6 @@ public class DapperRepository<T> : IRepository<Farmer>
         }
     }
 
-    /// <summary>
-    /// Возвращает одного фермера по его уникальному идентификатору.
-    /// </summary>
-    /// <param name="id">Идентификатор фермера</param>
-    /// <returns>Объект Farmer или null, если не найден</returns>
     public Farmer ReadByID(int id)
     {
         using (IDbConnection db = new SqlConnection(connectionString))
@@ -63,11 +40,7 @@ public class DapperRepository<T> : IRepository<Farmer>
         }
     }
 
-    /// <summary>
-    /// Обновляет данные существующего фермера в таблице Farmers.
-    /// Поиск выполняется по полю Id.
-    /// </summary>
-    /// <param name="obj">Объект Farmer с обновлёнными данными</param>
+
     public void Update(Farmer obj)
     {
         using (IDbConnection db = new SqlConnection(connectionString))
@@ -78,11 +51,7 @@ public class DapperRepository<T> : IRepository<Farmer>
         }
     }
 
-    /// <summary>
-    /// Удаляет фермера из таблицы Farmers по его ID.
-    /// Выводит в консоль количество удалённых строк.
-    /// </summary>
-    /// <param name="obj">Объект Farmer, который нужно удалить</param>
+
     public void Delete(Farmer obj)
     {
         using IDbConnection db = new SqlConnection(connectionString);
