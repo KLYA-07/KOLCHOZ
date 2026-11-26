@@ -21,6 +21,6 @@ namespace BusinessLogic
         /// <summary>
         /// Метод, осуществляющий сортировку списка фермеров по финансовому капиталу
         /// </summary>
-        public List<int> GetFarmTypeGroup(List<Farmer> farmers, string farmType);
+        public List<Farmer> GetFarmTypeGroup(List<Farmer> farmers, string farmType);
     }
 }

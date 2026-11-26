@@ -33,9 +33,9 @@ namespace BusinessLogic
             }
         }
 
-        public List<int> GetFarmTypeGroup(List<Farmer> farmers, string farmType)
+        public List<Farmer> GetFarmTypeGroup(List<Farmer> farmers, string farmType)
         {
-            return farmers.Where(f => f.farmType == farmType).Select(f => farmers.IndexOf(f)).ToList();
+            return farmers.Where(f => f.farmType == farmType).ToList();
         }
     }
 }

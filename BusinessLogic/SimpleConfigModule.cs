@@ -9,7 +9,7 @@ namespace BusinessLogic
         public override void Load()
         {
             Bind<IRepository<Farmer>>().To<DapperRepository<Farmer>>().InSingletonScope();
-            Bind<ILogic>().To<Logic>().InSingletonScope();
+            Bind<IModel>().To<Logic>().InSingletonScope();
             Bind<IFarmerFormatter>().To<FarmerFormatter>().InSingletonScope();
             Bind<IBusinessService>().To<BusinessService>().InSingletonScope();
         }

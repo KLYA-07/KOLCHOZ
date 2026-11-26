@@ -19,7 +19,7 @@ namespace ConsolePresentation
         /// <summary>
         /// Экземпляр бизнес-логики, через который выполняются все операции над фермерами.
         /// </summary>
-        private static ILogic logic = ninjectKernel.Get<ILogic>();
+        private static IModel logic = ninjectKernel.Get<IModel>();
 
         /// <summary>
         /// Точка входа в программу. Инициализирует тестовых фермеров и запускает главное меню.

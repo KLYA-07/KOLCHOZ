@@ -7,17 +7,9 @@ using System.Threading.Tasks;
 
 namespace BusinessLogic
 {
-    public interface ILogic
+    public interface IModel<T> where T : class
     {
-        /// <summary>
-        /// Список строк фермеров
-        /// </summary>
-        public List<string> AllFarmers { get; }
-
-        /// <summary>
-        /// Список ID всех фермеров
-        /// </summary>
-        public List<int> AllFarmersIDs { get; }
+        public event EventHandler DataChanged;
         /// <summary>
         /// Метод, добавляющий фермера в список фермеров
         /// </summary>
@@ -27,15 +19,15 @@ namespace BusinessLogic
         /// <summary>
         /// Метод, удаляющий фермера из списка по заданному индексу
         /// </summary>
-        /// <param name="farmerIndex">Индекс фермера в списке</param>
-        public void RemoveFarmer(int farmerIndex);
+        /// <param name="farmerID">ID фермера</param>
+        public void RemoveFarmer(int farmerID);
 
         /// <summary>
         /// Метод, предоставляющий доступ для чтения фермера
         /// </summary>
-        /// <param name="farmerIndex">Индекс выбранного фермера в списке</param>
+        /// <param name="farmerID">ID выбранного фермера</param>
         /// <returns></returns>
-        public Farmer ReadFarmer(int farmerIndex);
+        public Farmer ReadFarmer(int farmerID);
 
         /// <summary>
         /// Метод, меняющий фермера в списке путем замены
@@ -46,15 +38,22 @@ namespace BusinessLogic
         /// <summary>
         /// Метод, осуществляющий продажу земли между фермерами
         /// </summary>
-        /// <param name="payerFarmerIndex">Индекс фермера-покупателя в списке</param>
-        /// <param name="sellerFarmerIndex">Индекс фермера-продавца в списке</param>
+        /// <param name="payerFarmerID">ID фермера-покупателя</param>
+        /// <param name="sellerFarmerID">ID фермера-продавца</param>
         /// <param name="fieldArea">Площадь покупаемой земли</param>
         /// <returns></returns>
-        public int ExchangeField(int payerFarmerIndex, int sellerFarmerIndex, float fieldArea);
+        /// 
+        public int ExchangeField(int payerFarmerID, int sellerFarmerID, float fieldArea);
+
+        /// <summary>
+        /// Метод, возвращающий список всех фермеров
+        /// </summary>
+        /// <returns>Список фермеров</returns>
+        public List<Farmer> AllFarmers();
 
         /// <summary>
         /// Метод, осуществляющий сортировку списка фермеров по финансовому капиталу
         /// </summary>
-        public List<int> FarmTypeGroup(string farmType);
+        public List<Farmer> FarmTypeGroup(string farmType);
     }
 }

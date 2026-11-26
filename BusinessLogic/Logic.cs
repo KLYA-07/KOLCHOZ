@@ -3,75 +3,67 @@ using Model;
 
 namespace BusinessLogic
 {
-    public class Logic : ILogic
+    public class Logic : IModel<Farmer>
     {
-        private IRepository<Farmer> allFarmers;
+        public event EventHandler DataChanged;
+        private IRepository<Farmer> repository;
         private IBusinessService service;
-        private IFarmerFormatter formatter;
 
-        public Logic(IRepository<Farmer> repository, IFarmerFormatter formatter, IBusinessService service)
+        public Logic(IRepository<Farmer> repository, IBusinessService service)
         {
-            allFarmers = repository;
+            this.repository = repository;
             this.service = service;
-            this.formatter = formatter;
-        }
-
-        public List<string> AllFarmers
-        {
-            get
-            {
-                return formatter.GetFarmersStrings(allFarmers.ReadAll().ToList());
-            }
-        }
-
-        public List<int> AllFarmersIDs
-        {
-            get
-            {
-                return formatter.GetFarmersIDs(allFarmers.ReadAll().ToList());
-            }
         }
 
         public void AddFarmer(Farmer farmer)
         {
-            allFarmers.Create(farmer);
+            repository.Create(farmer);
         }
 
-        public void RemoveFarmer(int farmerIndex)
+        public void RemoveFarmer(int farmerID)
         {
-            Farmer farmer = allFarmers.ReadAll().ToList()[farmerIndex];
-            allFarmers.Delete(farmer);
+            Farmer farmer = repository.ReadAll().Where(f => f.ID == farmerID).FirstOrDefault();
+
+            if(farmer != null)
+            {
+                repository.Delete(farmer);
+            }
         }
 
-        public Farmer ReadFarmer(int farmerIndex)
+        public Farmer ReadFarmer(int farmerID)
         {
-            return allFarmers.ReadByID(AllFarmersIDs[farmerIndex]);
+            return repository.ReadByID(farmerID);
         }
 
         public void ChangeFarmer(Farmer farmer)
         {
-            allFarmers.Update(farmer);
+            repository.Update(farmer);
         }
 
-        public int ExchangeField(int payerFarmerIndex, int sellerFarmerIndex, float fieldArea)
+        public List<Farmer> AllFarmers()
         {
-            Farmer payer = allFarmers.ReadByID(AllFarmersIDs[payerFarmerIndex]);
-            Farmer seller = allFarmers.ReadByID(AllFarmersIDs[sellerFarmerIndex]);
+            return repository.ReadAll().ToList();
+        }
+
+        public int ExchangeField(int payerFarmerID, int sellerFarmerID, float fieldArea)
+        {
+            Farmer payer = repository.ReadByID(payerFarmerID);
+            Farmer seller = repository.ReadByID(sellerFarmerID);
 
             int result = service.DoFieldExchange(payer, seller, fieldArea);
 
             if(result == 1)
             {
-                allFarmers.Update(payer);
-                allFarmers.Update(seller);
+                repository.Update(payer);
+                repository.Update(seller);
             }
 
             return result;
         }
 
-        public List<int> FarmTypeGroup(string farmType)
+        public List<Farmer> FarmTypeGroup(string farmType)
         {
-            List<Farmer> farmers = allFarmers.ReadAll().ToList();
+            List<Farmer> farmers = repository.ReadAll().ToList();
 
             return service.GetFarmTypeGroup(farmers, farmType);
         }
